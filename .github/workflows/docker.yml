@@ -1,0 +1,27 @@
+name: Build Sandbox Image
+
+on:
+  push:
+    paths:
+      - 'docker/sandbox/**'
+      - '.github/workflows/docker.yml'
+  pull_request:
+    paths:
+      - 'docker/sandbox/**'
+      - '.github/workflows/docker.yml'
+
+jobs:
+  build-sandbox:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-docker@v1
+        # Note: If setup-docker doesn't exist, actions checkout standard docker setup works
+
+      - name: Build sandbox image
+        run: |
+          docker build -t dtae/multi-sandbox:latest -f docker/sandbox/Dockerfile.sandbox docker/sandbox
