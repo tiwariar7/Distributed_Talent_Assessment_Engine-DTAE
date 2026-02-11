@@ -1,0 +1,32 @@
+name: Security & Linting
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Linting & Security Tools
+        run: |
+          pip install ruff bandit
+
+      - name: Run Ruff Linting Check
+        run: |
+          ruff check .
+
+      - name: Run Bandit Security Scanner
+        run: |
+          bandit -r apps/ config/ infrastructure/ -x tests/
