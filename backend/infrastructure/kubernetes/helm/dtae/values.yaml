@@ -1,0 +1,55 @@
+# Default values for Distributed Talent Assessment Engine (DTAE)
+
+global:
+  namespace: dtae
+
+image:
+  repository: dtae/api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount:
+  api: 2
+  workerPython: 1
+  workerCpp: 1
+  workerJava: 1
+  workerJavascript: 1
+
+resources:
+  api:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  worker:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+postgres:
+  storageSize: 5Gi
+  user: dtae
+  password: dtae_secret
+  db: dtae
+
+couchdb:
+  storageSize: 10Gi
+  user: admin
+  password: dtae_secret
+  db: dtae_documents
+
+minio:
+  storageSize: 10Gi
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: dtae-logs
+
+ingress:
+  enabled: true
+  className: nginx
+  host: dtae.local
