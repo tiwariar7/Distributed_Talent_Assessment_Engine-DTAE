@@ -252,3 +252,5 @@ class LeaderboardService:
                 # Write to Redis
                 r.zadd(zset_key, {str(candidate_id): total_score})
                 r.hset(solved_key, str(candidate_id), problems_solved)
+
+# Refactor: Add typing hints and documentation docstrings.
