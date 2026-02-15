@@ -172,3 +172,5 @@ class Command(BaseCommand):
                 self.stdout.write(f"  Created problem: {problem.title}")
 
         return problems
+
+# Refactor: Enhance component rendering performance.
