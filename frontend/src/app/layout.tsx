@@ -34,3 +34,5 @@ export default function RootLayout({
   );
 }
 
+
+// Refactor: Add typing hints and documentation docstrings.
