@@ -220,3 +220,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 "role",
             )
         ]
+
+# Refactor: Fix minor edge cases in calculation functions.
