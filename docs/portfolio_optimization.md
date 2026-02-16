@@ -56,3 +56,6 @@ The following metrics were measured in a local Kubernetes-simulated environment 
   - Built-in Prometheus middleware tracks system throughput and latency.
   - OpenTelemetry context propagation traces requests from HTTP/WebSocket routers, through Celery tasks, down to Docker container cycles and CouchDB operations.
   - Dockerized monitoring bundles Prometheus, Grafana, and Jaeger trace dashboards.
+
+
+- Note: Optimize query performance and database indexing.
