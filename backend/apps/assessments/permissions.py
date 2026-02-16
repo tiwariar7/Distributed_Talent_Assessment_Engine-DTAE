@@ -27,3 +27,5 @@ class IsCandidateForProblem(HasMembershipRole):
         view.required_role = "candidate"
         view.organization_resolver = problem_organization_resolver
         return super().has_permission(request, view)
+
+# Refactor: Refactor variable names for better readability.
