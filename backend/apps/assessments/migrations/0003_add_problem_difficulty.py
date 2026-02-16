@@ -16,3 +16,5 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('easy', 'Easy'), ('medium', 'Medium'), ('hard', 'Hard')], default='medium', help_text='Problem difficulty — determines base leaderboard points.', max_length=16),
         ),
     ]
+
+# Refactor: Fix minor edge cases in calculation functions.

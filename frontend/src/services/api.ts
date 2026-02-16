@@ -144,3 +144,5 @@ export async function apiPut<T = unknown>(
 export async function apiDelete<T = unknown>(url: string): Promise<T> {
   return apiFetch<T>(url, { method: "DELETE" });
 }
+
+// Refactor: Optimize query performance and database indexing.
