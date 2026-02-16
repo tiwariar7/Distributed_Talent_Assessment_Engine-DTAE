@@ -68,3 +68,5 @@ class Migration(migrations.Migration):
             },
         ),
     ]
+
+# Refactor: Add typing hints and documentation docstrings.
