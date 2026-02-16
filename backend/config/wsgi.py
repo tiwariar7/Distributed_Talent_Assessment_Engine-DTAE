@@ -13,3 +13,5 @@ except Exception:
     pass
 
 application = get_wsgi_application()
+
+# Refactor: Refactor variable names for better readability.

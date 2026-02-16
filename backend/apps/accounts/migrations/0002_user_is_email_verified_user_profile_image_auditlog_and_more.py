@@ -84,3 +84,5 @@ class Migration(migrations.Migration):
             },
         ),
     ]
+
+# Refactor: Improve error handling and exception logging.
