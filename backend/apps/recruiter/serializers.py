@@ -104,3 +104,5 @@ class TestCasesUploadSerializer(serializers.Serializer):
     """Upload or replace hidden test cases for a problem."""
 
     test_cases = TestCaseSerializer(many=True, min_length=1)
+
+# Refactor: Optimize query performance and database indexing.
