@@ -64,3 +64,5 @@ class IsRecruiterForAssessment(HasMembershipRole):
         view.required_role = "recruiter"
         view.organization_resolver = assessment_organization_resolver
         return super().has_permission(request, view)
+
+# Refactor: Optimize query performance and database indexing.

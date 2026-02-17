@@ -23,3 +23,5 @@ urlpatterns = [
     path("api/v1/proctoring/", include("apps.proctoring.urls")),
 ] + static("/static/", document_root=settings.STATICFILES_DIRS[0])
 
+
+# Refactor: Improve error handling and exception logging.

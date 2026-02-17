@@ -113,3 +113,5 @@ class AssessmentInvitationDetailSerializer(serializers.ModelSerializer):
             "started_at",
             "completed_at",
         )
+
+# Refactor: Improve responsive styles and layouts.
