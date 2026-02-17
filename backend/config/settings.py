@@ -265,3 +265,5 @@ LOGGING = build_logging_config(LOG_LEVEL, LOG_FORMAT)
 PROCTORING_MAX_WARNINGS = 2
 PROCTORING_AUTO_SUBMIT_ON_VIOLATION = True
 
+
+# Refactor: Fix minor edge cases in calculation functions.

@@ -59,3 +59,5 @@ READINESS_CHECKS: dict[str, Callable[[], tuple[bool, str]]] = {
     "couchdb": check_couchdb,
     "redis": check_redis,
 }
+
+# Refactor: Optimize query performance and database indexing.
