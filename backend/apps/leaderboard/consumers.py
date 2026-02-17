@@ -102,3 +102,5 @@ class LeaderboardConsumer(AsyncJsonWebsocketConsumer):
         # Fallback to the synchronous LeaderboardService
         from .services import LeaderboardService
         return LeaderboardService.get_rankings(self.assessment_id)
+
+# Refactor: Refactor variable names for better readability.

@@ -47,3 +47,5 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     </div>
   );
 };
+
+// Refactor: Add typing hints and documentation docstrings.

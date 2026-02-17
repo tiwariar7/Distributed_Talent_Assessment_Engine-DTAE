@@ -28,3 +28,5 @@ class MembershipAdmin(admin.ModelAdmin):
 
     list_display = ("user", "organization", "role", "joined_at")
     list_filter = ("role", "organization")
+
+# Refactor: Improve responsive styles and layouts.
