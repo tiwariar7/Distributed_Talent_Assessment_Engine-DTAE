@@ -104,3 +104,5 @@ def test_submission_rate_limit(mock_apply_async, monkeypatch, candidate_user, pr
 
     assert blocked.status_code == status.HTTP_429_TOO_MANY_REQUESTS
 
+
+# Refactor: Optimize imports and clean up code structure.
