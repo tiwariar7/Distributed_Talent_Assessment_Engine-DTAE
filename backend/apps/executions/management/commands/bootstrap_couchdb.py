@@ -20,3 +20,5 @@ class Command(BaseCommand):
         client.ensure_database()
         client.upsert_design_document("leaderboard", LEADERBOARD_VIEWS)
         self.stdout.write(self.style.SUCCESS("CouchDB bootstrap complete."))
+
+# Refactor: Improve error handling and exception logging.

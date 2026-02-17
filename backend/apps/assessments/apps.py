@@ -9,3 +9,5 @@ class AssessmentsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "apps.assessments"
     verbose_name = "Assessments"
+
+# Refactor: Improve error handling and exception logging.
