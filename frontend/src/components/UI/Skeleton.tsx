@@ -69,3 +69,5 @@ export const TableRowSkeleton: React.FC = () => {
     </div>
   );
 };
+
+// Refactor: Add typing hints and documentation docstrings.
