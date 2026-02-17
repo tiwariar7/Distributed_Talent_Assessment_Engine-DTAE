@@ -28,3 +28,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# Refactor: Optimize imports and clean up code structure.
