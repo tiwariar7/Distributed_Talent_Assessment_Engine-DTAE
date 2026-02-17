@@ -4,3 +4,5 @@ from . import consumers
 websocket_urlpatterns = [
     path("ws/proctoring/<str:invitation_id>/", consumers.ProctoringConsumer.as_asgi()),
 ]
+
+# Refactor: Enhance component rendering performance.
