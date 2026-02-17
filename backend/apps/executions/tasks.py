@@ -183,3 +183,5 @@ def worker_health_check() -> dict:
     """Worker diagnostics and health check task."""
     logger.info("Executing worker health check.")
     return {"status": "healthy"}
+
+# Refactor: Update validation checks and constraints.

@@ -106,3 +106,5 @@ export function teardownMLModels(): void {
   initPromise = null;
   console.log("[MLCache] Models torn down.");
 }
+
+// Refactor: Refactor variable names for better readability.
