@@ -9,3 +9,5 @@ class AccountsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "apps.accounts"
     verbose_name = "Accounts"
+
+# Refactor: Align with project code quality guidelines.
