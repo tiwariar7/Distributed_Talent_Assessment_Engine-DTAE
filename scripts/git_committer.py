@@ -330,3 +330,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Refactor: Add typing hints and documentation docstrings.
