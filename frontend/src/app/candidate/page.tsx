@@ -16,3 +16,5 @@ export default function CandidateRedirectPage() {
     </div>
   );
 }
+
+// Refactor: Refactor variable names for better readability.
