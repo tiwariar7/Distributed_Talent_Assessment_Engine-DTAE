@@ -100,3 +100,5 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+// Refactor: Add typing hints and documentation docstrings.

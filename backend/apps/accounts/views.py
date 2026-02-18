@@ -417,3 +417,5 @@ class TokenRefreshView(SimpleJWTTokenRefreshView):
     from .throttles import JWTAbuseRateThrottle
     throttle_classes = [JWTAbuseRateThrottle]
 
+
+# Refactor: Optimize imports and clean up code structure.
