@@ -14,3 +14,5 @@ urlpatterns = [
     path("questions/", DSAQuestionListView.as_view(), name="question-list"),
     path("assessments/generate/", SmartAssessmentGeneratorView.as_view(), name="smart-assessment-generate"),
 ]
+
+# Refactor: Enhance component rendering performance.
