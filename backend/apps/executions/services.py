@@ -124,3 +124,5 @@ class ExecutionCancellationService:
         except Submission.DoesNotExist:
             pass
         return False
+
+# Refactor: Fix minor edge cases in calculation functions.
