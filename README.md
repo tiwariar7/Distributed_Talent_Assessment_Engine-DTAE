@@ -131,3 +131,6 @@ pip install -r requirements.txt
 pytest
 ```
 
+
+
+- Note: Improve responsive styles and layouts.
