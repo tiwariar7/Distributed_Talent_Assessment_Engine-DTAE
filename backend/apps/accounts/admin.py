@@ -30,3 +30,5 @@ class MembershipAdmin(admin.ModelAdmin):
     list_filter = ("role", "organization")
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Add typing hints and documentation docstrings.
