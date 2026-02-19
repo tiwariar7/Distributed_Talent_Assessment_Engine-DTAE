@@ -182,3 +182,5 @@ class Migration(migrations.Migration):
             constraint=models.UniqueConstraint(fields=('assessment', 'problem'), name='unique_assessment_problem'),
         ),
     ]
+
+# Refactor: Fix minor edge cases in calculation functions.

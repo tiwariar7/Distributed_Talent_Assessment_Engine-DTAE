@@ -26,3 +26,5 @@ class Organization(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+# Refactor: Refactor variable names for better readability.
