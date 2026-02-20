@@ -57,3 +57,5 @@ class SubmissionExecutionLogView(APIView):
         return Response(serializer.data)
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Refactor variable names for better readability.

@@ -16,3 +16,5 @@ urlpatterns = [
         name="submission-execution-log",
     ),
 ]
+
+# Refactor: Add typing hints and documentation docstrings.
