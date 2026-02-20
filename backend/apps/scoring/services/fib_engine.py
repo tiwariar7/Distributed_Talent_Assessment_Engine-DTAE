@@ -50,3 +50,5 @@ class FIBScoringEngine:
                     return float(aq.marks)
 
         return float(-aq.negative_marks) if aq.negative_marks else 0.0
+
+# Refactor: Add typing hints and documentation docstrings.

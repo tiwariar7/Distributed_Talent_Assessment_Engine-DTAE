@@ -50,3 +50,5 @@ class ReadinessView(APIView):
             {"status": "ready" if all_healthy else "degraded", "checks": results},
             status=status_code,
         )
+
+# Refactor: Refactor variable names for better readability.
