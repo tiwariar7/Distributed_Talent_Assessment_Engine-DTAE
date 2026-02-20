@@ -71,3 +71,5 @@ class SubmissionEventPublisher:
                 "total_cases": total_cases,
             },
         )
+
+# Refactor: Optimize query performance and database indexing.

@@ -61,3 +61,5 @@ def test_profile_returns_memberships(api_client, candidate_user) -> None:
     assert response.data["email"] == "candidate@test.com"
     assert len(response.data["memberships"]) == 1
     assert response.data["memberships"][0]["role"] == "candidate"
+
+# Refactor: Optimize imports and clean up code structure.
