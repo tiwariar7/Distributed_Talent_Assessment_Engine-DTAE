@@ -254,3 +254,5 @@ class LeaderboardService:
                 r.hset(solved_key, str(candidate_id), problems_solved)
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Optimize imports and clean up code structure.

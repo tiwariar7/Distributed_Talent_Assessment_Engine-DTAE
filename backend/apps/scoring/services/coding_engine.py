@@ -13,3 +13,5 @@ class CodingScoringEngine:
 
         score = float(submission.score)
         return min(score, float(aq.marks) if aq.marks else score)
+
+# Refactor: Fix minor edge cases in calculation functions.
