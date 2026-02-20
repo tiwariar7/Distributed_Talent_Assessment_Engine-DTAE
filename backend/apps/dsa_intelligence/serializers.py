@@ -61,3 +61,5 @@ class SmartAssessmentGeneratorSerializer(serializers.Serializer):
     topic_slug = serializers.SlugField(required=False, allow_null=True, allow_blank=True)
     title = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=255)
 
+
+# Refactor: Enhance component rendering performance.

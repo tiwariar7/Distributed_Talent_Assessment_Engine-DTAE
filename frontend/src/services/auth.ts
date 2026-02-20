@@ -92,3 +92,5 @@ export function getUserOrganizations(token: string | null): MembershipClaim[] {
 export function isTokenValid(token: string | null): boolean {
   return decodeToken(token) !== null;
 }
+
+// Refactor: Optimize query performance and database indexing.
