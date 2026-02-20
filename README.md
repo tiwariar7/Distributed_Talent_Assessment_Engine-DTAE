@@ -134,3 +134,6 @@ pytest
 
 
 - Note: Improve responsive styles and layouts.
+
+
+- Note: Update validation checks and constraints.

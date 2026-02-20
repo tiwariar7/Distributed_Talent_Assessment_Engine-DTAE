@@ -91,3 +91,5 @@ class IsAdminUser(HasMembershipRole):
         view.required_role = "admin"
         return super().has_permission(request, view)
 
+
+# Refactor: Refactor variable names for better readability.
