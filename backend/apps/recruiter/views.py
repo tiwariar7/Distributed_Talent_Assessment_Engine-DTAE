@@ -151,3 +151,5 @@ class RecruiterTestCasesUploadView(APIView):
                 "test_case_count": len(serializer.validated_data["test_cases"]),
             },
         )
+
+# Refactor: Improve error handling and exception logging.
