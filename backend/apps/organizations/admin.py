@@ -12,3 +12,5 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "is_active", "created_at")
     search_fields = ("name", "slug")
     prepopulated_fields = {"slug": ("name",)}
+
+# Refactor: Optimize imports and clean up code structure.

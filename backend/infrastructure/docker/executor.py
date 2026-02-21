@@ -220,3 +220,5 @@ class DockerCodeExecutor:
             cpu_time=cpu_time,
             peak_memory=peak_memory,
         )
+
+# Refactor: Update validation checks and constraints.

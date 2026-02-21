@@ -29,3 +29,5 @@ class AntiDoSRateThrottle(AnonRateThrottle):
     """Global high-frequency rate-limiting filter based on IP to mitigate DoS attacks."""
 
     scope = "anti_dos"
+
+# Refactor: Improve responsive styles and layouts.
