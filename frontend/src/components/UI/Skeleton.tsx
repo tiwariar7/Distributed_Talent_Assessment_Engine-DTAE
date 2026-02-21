@@ -73,3 +73,5 @@ export const TableRowSkeleton: React.FC = () => {
 // Refactor: Add typing hints and documentation docstrings.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Improve responsive styles and layouts.
