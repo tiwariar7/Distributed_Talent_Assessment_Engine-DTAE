@@ -10,3 +10,5 @@ class LeaderboardEntrySerializer(serializers.Serializer):
     candidate_id = serializers.IntegerField()
     total_score = serializers.IntegerField()
     problems_solved = serializers.IntegerField()
+
+# Refactor: Fix minor edge cases in calculation functions.
