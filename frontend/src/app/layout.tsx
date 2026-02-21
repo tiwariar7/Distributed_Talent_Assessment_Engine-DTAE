@@ -36,3 +36,5 @@ export default function RootLayout({
 
 
 // Refactor: Add typing hints and documentation docstrings.
+
+// Refactor: Optimize imports and clean up code structure.
