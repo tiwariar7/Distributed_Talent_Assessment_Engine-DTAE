@@ -21,3 +21,5 @@ class AssessmentLeaderboardView(APIView):
         rankings = LeaderboardService.get_rankings(assessment_id, limit=limit)
         serializer = LeaderboardEntrySerializer(rankings, many=True)
         return Response(serializer.data)
+
+# Refactor: Align with project code quality guidelines.

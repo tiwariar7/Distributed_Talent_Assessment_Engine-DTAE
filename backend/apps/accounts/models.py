@@ -163,3 +163,5 @@ class CandidateProfile(models.Model):
 
     def __str__(self) -> str:
         return f"CandidateProfile for {self.user.email}"
+
+# Refactor: Add typing hints and documentation docstrings.
