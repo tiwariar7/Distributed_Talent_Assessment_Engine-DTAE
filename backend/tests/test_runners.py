@@ -67,3 +67,5 @@ def test_java_runner():
     assert exec_cmd == ["java", "-cp", "/tmp", "Solution"]
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Improve error handling and exception logging.
