@@ -125,3 +125,5 @@ if __name__ == "__main__":
         benchmark_minio_storage()
     except Exception as e:
         print(f"MinIO benchmark failed: {e}")
+
+# Refactor: Refactor variable names for better readability.

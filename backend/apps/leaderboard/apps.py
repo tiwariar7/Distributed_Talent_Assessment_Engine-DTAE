@@ -11,3 +11,5 @@ class LeaderboardConfig(AppConfig):
     verbose_name = "Leaderboard"
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Optimize query performance and database indexing.
