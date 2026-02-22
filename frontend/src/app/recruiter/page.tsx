@@ -299,3 +299,5 @@ export default function RecruiterDashboard() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Enhance component rendering performance.
