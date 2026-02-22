@@ -8,3 +8,5 @@ export function useAuth() {
   }
   return context;
 }
+
+// Refactor: Improve responsive styles and layouts.

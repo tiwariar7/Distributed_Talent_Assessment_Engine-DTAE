@@ -28,3 +28,5 @@ def test_seed_demo_data_is_idempotent(mock_couch_client, mock_repository) -> Non
     assert Assessment.objects.filter(title="Backend Engineering Screen").count() == 1
     assert Problem.objects.filter(assessment__organization__slug="acme-corp").count() == 2
     assert Membership.objects.filter(user__email="candidate@demo.test").exists()
+
+# Refactor: Align with project code quality guidelines.

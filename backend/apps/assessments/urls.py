@@ -13,3 +13,5 @@ urlpatterns = [
     path("problems/<int:problem_id>/submissions/", ProblemSubmissionView.as_view(), name="problem-submission-compat"),
     path("", include(router.urls)),
 ]
+
+# Refactor: Refactor variable names for better readability.
