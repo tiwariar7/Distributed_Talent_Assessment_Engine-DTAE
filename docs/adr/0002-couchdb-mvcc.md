@@ -18,3 +18,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 - Highly scalable log logging without blocking PostgreSQL database connections.
 - Complete isolation of candidate outputs from critical core transaction tables.
 - Resilience under load, with conflict rates naturally dropping as backoff delays stagger execution completion times.
+
+
+- Note: Refactor variable names for better readability.

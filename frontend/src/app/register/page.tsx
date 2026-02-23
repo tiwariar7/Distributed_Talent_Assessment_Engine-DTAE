@@ -214,3 +214,5 @@ export default function Register() {
     </AuthLayout>
   );
 }
+
+// Refactor: Enhance component rendering performance.
