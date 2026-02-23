@@ -84,3 +84,5 @@ class RecruiterAssessmentService:
         assessment.status = Assessment.Status.PUBLISHED
         assessment.save(update_fields=["status", "updated_at"])
         return assessment
+
+# Refactor: Refactor variable names for better readability.

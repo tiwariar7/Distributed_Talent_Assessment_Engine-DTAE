@@ -30,3 +30,5 @@ def test_seed_demo_data_is_idempotent(mock_couch_client, mock_repository) -> Non
     assert Membership.objects.filter(user__email="candidate@demo.test").exists()
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Fix minor edge cases in calculation functions.
