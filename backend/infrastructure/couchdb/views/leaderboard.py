@@ -25,3 +25,5 @@ LEADERBOARD_VIEWS = {
         "map": LEADERBOARD_BY_ASSESSMENT_MAP,
     },
 }
+
+# Refactor: Add typing hints and documentation docstrings.
