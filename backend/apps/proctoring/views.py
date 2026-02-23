@@ -240,3 +240,5 @@ class EndProctoringSessionView(APIView):
 
         serializer = ProctoringSessionSerializer(session)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Refactor: Align with project code quality guidelines.

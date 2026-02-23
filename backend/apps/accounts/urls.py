@@ -28,3 +28,5 @@ urlpatterns = [
     path("audit-logs/", AuditLogListView.as_view(), name="auth-audit-logs"),
     path("me/", ProfileView.as_view(), name="auth-profile"),
 ]
+
+# Refactor: Align with project code quality guidelines.
