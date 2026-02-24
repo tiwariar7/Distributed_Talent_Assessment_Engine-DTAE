@@ -94,3 +94,5 @@ def test_leaderboard_max_score_aggregation(candidate_user, recruiter_user, organ
     assert rankings_fallback[0]["total_score"] == 140
     assert rankings_fallback[0]["problems_solved"] == 2
     assert r.zscore(zset_key, str(candidate_user.id)) == 140
+
+# Refactor: Fix minor edge cases in calculation functions.
