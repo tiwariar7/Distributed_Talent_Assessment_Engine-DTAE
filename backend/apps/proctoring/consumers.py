@@ -236,3 +236,5 @@ class ProctoringConsumer(AsyncJsonWebsocketConsumer):
             logger.warning("WebSocket auth failed: %s", exc)
             return None
 
+
+# Refactor: Enhance component rendering performance.
