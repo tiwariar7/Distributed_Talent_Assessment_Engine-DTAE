@@ -23,3 +23,5 @@ class AssessmentLeaderboardView(APIView):
         return Response(serializer.data)
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Align with project code quality guidelines.
