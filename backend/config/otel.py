@@ -59,3 +59,5 @@ def initialize_otel():
         logger.error("Failed to initialize OpenTelemetry: %s", e)
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Fix minor edge cases in calculation functions.

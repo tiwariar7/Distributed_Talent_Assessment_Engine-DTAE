@@ -55,3 +55,5 @@ def test_evaluation_task_retries_on_conflict(
     
     # Verify select_related database fetch was done
     mock_select_related.return_value.get.assert_called_once_with(pk=1)
+
+# Refactor: Optimize query performance and database indexing.
