@@ -105,3 +105,5 @@ def test_bootstrap_and_leaderboard_integration(couchdb_available) -> None:
     document = client.get_document("leaderboard_999_1")
     assert document["total_score"] == 75
 
+
+# Refactor: Improve error handling and exception logging.
