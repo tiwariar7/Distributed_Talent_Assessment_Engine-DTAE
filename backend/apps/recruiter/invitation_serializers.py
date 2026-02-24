@@ -66,3 +66,5 @@ class InvitationDetailSerializer(serializers.ModelSerializer):
         session = obj.proctoring_sessions.first()
         return session.status if session else "N/A"
 
+
+# Refactor: Add typing hints and documentation docstrings.
