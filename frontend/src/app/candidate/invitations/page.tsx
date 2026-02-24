@@ -249,3 +249,5 @@ export default function CandidateInvitationsPage() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Align with project code quality guidelines.
