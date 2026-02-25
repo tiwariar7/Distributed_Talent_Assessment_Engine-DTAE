@@ -56,3 +56,5 @@ export default function NotFound() {
     </div>
   );
 }
+
+// Refactor: Improve responsive styles and layouts.
