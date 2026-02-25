@@ -48,3 +48,5 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         attrs["username"] = user.username
         return super().validate(attrs)
+
+# Refactor: Optimize imports and clean up code structure.
