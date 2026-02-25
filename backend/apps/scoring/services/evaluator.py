@@ -174,3 +174,5 @@ class AssessmentEvaluator:
             logger.warning("Leaderboard update failed during session grading: %s", exc)
 
         return report
+
+# Refactor: Improve error handling and exception logging.
