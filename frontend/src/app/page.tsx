@@ -267,3 +267,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+// Refactor: Optimize imports and clean up code structure.

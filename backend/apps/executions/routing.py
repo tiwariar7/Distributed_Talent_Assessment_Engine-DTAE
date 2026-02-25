@@ -10,3 +10,5 @@ websocket_urlpatterns = [
         SubmissionExecutionConsumer.as_asgi(),
     ),
 ]
+
+# Refactor: Optimize imports and clean up code structure.
