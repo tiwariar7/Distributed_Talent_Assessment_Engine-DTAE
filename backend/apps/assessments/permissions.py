@@ -29,3 +29,5 @@ class IsCandidateForProblem(HasMembershipRole):
         return super().has_permission(request, view)
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Update validation checks and constraints.
