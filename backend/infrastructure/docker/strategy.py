@@ -146,3 +146,5 @@ def get_runner(language: str) -> LanguageRunner:
     if not runner:
         raise ValueError(f"Unsupported execution language strategy: {language}")
     return runner
+
+# Refactor: Add typing hints and documentation docstrings.
