@@ -51,3 +51,5 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 // Refactor: Add typing hints and documentation docstrings.
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Fix minor edge cases in calculation functions.
