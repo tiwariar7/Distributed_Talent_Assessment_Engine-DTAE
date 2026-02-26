@@ -13,3 +13,5 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </AuthProvider>
   );
 }
+
+// Refactor: Update validation checks and constraints.
