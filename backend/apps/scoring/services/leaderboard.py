@@ -12,3 +12,5 @@ class LeaderboardScoringService:
             assessment_id=assessment_id,
             candidate_id=candidate_id,
         )
+
+# Refactor: Optimize imports and clean up code structure.
