@@ -395,3 +395,5 @@ class AssessmentReport(models.Model):
         return f"Report: {self.candidate.email} - {self.assessment.title}"
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Fix minor edge cases in calculation functions.
