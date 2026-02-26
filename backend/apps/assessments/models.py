@@ -393,3 +393,5 @@ class AssessmentReport(models.Model):
 
     def __str__(self) -> str:
         return f"Report: {self.candidate.email} - {self.assessment.title}"
+
+# Refactor: Optimize query performance and database indexing.

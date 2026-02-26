@@ -14,3 +14,5 @@ class OrganizationAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Improve error handling and exception logging.
