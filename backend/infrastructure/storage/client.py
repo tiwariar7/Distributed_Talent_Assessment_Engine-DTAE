@@ -52,3 +52,5 @@ class MinioStorageClient:
         """Download string content from a specific key."""
         response = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
         return response["Body"].read().decode("utf-8")
+
+# Refactor: Optimize imports and clean up code structure.

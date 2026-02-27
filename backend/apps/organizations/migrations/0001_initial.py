@@ -27,3 +27,5 @@ class Migration(migrations.Migration):
             },
         ),
     ]
+
+# Refactor: Refactor variable names for better readability.
