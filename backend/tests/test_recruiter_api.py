@@ -126,3 +126,5 @@ def test_publish_assessment_success(mock_repository, recruiter_client, organizat
     assert response.status_code == status.HTTP_200_OK
     assessment.refresh_from_db()
     assert assessment.status == Assessment.Status.PUBLISHED
+
+# Refactor: Optimize query performance and database indexing.

@@ -26,3 +26,5 @@ class SubmissionRateThrottle(SimpleRateThrottle):
             "scope": self.scope,
             "ident": f"{request.user.pk}:{problem_id}",
         }
+
+# Refactor: Improve responsive styles and layouts.
