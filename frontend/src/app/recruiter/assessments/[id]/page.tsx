@@ -422,3 +422,5 @@ export default function RecruiterAssessmentDetailsPage() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Refactor variable names for better readability.
