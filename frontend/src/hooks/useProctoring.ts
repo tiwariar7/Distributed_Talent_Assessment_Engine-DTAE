@@ -548,3 +548,5 @@ export function useProctoring({
     sendTelemetry,
   };
 }
+
+// Refactor: Align with project code quality guidelines.

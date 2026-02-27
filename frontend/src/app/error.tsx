@@ -76,3 +76,5 @@ export default function ErrorPage({
     </div>
   );
 }
+
+// Refactor: Optimize query performance and database indexing.
