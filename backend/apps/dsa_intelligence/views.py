@@ -281,3 +281,5 @@ class SmartAssessmentGeneratorView(APIView):
 
         return Response(response_data, status=status.HTTP_201_CREATED)
 
+
+# Refactor: Add typing hints and documentation docstrings.
