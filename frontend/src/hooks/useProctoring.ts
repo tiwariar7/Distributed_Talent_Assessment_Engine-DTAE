@@ -550,3 +550,5 @@ export function useProctoring({
 }
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Improve responsive styles and layouts.
