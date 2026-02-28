@@ -28,3 +28,5 @@ class SubmissionRateThrottle(SimpleRateThrottle):
         }
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Align with project code quality guidelines.
