@@ -31,3 +31,5 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('pending', 'Pending'), ('accepted', 'Accepted'), ('started', 'Started'), ('completed', 'Completed'), ('expired', 'Expired')], default='pending', max_length=16),
         ),
     ]
+
+# Refactor: Align with project code quality guidelines.
