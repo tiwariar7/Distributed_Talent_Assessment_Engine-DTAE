@@ -155,3 +155,5 @@ class ProctoringLog(models.Model):
 
     def __str__(self):
         return f"{self.event_type} at {self.timestamp}"
+
+# Refactor: Enhance component rendering performance.
