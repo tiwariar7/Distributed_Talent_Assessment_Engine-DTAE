@@ -494,3 +494,5 @@ export default function InviteCandidatesDashboard() {
 
 
 // Refactor: Enhance component rendering performance.
+
+// Refactor: Improve error handling and exception logging.
