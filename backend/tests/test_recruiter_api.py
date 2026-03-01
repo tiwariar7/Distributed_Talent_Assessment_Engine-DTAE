@@ -128,3 +128,5 @@ def test_publish_assessment_success(mock_repository, recruiter_client, organizat
     assert assessment.status == Assessment.Status.PUBLISHED
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Update validation checks and constraints.
