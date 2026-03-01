@@ -21,3 +21,5 @@ class ExecutionLogSerializer(serializers.Serializer):
     couchdb_doc_id = serializers.CharField()
     entry_count = serializers.IntegerField()
     entries = ExecutionLogEntrySerializer(many=True)
+
+# Refactor: Align with project code quality guidelines.
