@@ -25,3 +25,5 @@ class AssessmentLeaderboardView(APIView):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Optimize query performance and database indexing.

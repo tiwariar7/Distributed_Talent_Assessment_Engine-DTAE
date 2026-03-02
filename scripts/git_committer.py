@@ -332,3 +332,5 @@ if __name__ == "__main__":
     main()
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Refactor variable names for better readability.

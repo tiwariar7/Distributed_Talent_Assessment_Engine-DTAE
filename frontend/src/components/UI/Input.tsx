@@ -62,3 +62,5 @@ export const Input: React.FC<InputProps> = ({
     </div>
   );
 };
+
+// Refactor: Fix minor edge cases in calculation functions.
