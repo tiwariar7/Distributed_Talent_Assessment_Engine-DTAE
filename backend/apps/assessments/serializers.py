@@ -119,3 +119,5 @@ class AssessmentInvitationDetailSerializer(serializers.ModelSerializer):
 # Refactor: Enhance component rendering performance.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Improve responsive styles and layouts.
