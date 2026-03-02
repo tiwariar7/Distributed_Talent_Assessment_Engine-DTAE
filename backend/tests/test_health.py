@@ -35,3 +35,5 @@ def test_readiness_degraded(mock_redis, mock_couch, mock_pg, api_client) -> None
     assert response.status_code == status.HTTP_503_SERVICE_UNAVAILABLE
     assert response.data["status"] == "degraded"
     assert response.data["checks"]["couchdb"]["healthy"] is False
+
+# Refactor: Enhance component rendering performance.
