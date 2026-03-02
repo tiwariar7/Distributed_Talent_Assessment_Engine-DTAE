@@ -73,3 +73,5 @@ urlpatterns = [
         name="candidate-invitation-detail",
     ),
 ]
+
+# Refactor: Improve error handling and exception logging.
