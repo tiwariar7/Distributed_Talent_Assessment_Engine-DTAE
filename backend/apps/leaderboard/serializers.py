@@ -12,3 +12,5 @@ class LeaderboardEntrySerializer(serializers.Serializer):
     problems_solved = serializers.IntegerField()
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Update validation checks and constraints.
