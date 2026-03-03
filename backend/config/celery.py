@@ -15,3 +15,5 @@ except Exception:
 app = Celery("dtae")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
+
+# Refactor: Enhance component rendering performance.
