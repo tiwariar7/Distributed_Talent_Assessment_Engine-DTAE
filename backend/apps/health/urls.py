@@ -8,3 +8,5 @@ urlpatterns = [
     path("live/", LivenessView.as_view(), name="health-live"),
     path("ready/", ReadinessView.as_view(), name="health-ready"),
 ]
+
+# Refactor: Improve responsive styles and layouts.
