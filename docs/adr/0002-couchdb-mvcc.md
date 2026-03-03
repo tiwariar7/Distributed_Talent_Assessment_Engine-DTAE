@@ -21,3 +21,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 
 
 - Note: Refactor variable names for better readability.
+
+
+- Note: Fix minor edge cases in calculation functions.
