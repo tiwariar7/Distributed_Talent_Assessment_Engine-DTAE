@@ -29,3 +29,5 @@ LEADERBOARD_VIEWS = {
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Update validation checks and constraints.
