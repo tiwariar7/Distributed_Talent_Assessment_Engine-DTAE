@@ -59,3 +59,5 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 // Refactor: Improve responsive styles and layouts.
 
 // Refactor: Optimize imports and clean up code structure.
+
+// Refactor: Improve responsive styles and layouts.
