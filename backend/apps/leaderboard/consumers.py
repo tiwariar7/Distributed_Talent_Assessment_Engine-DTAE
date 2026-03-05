@@ -104,3 +104,5 @@ class LeaderboardConsumer(AsyncJsonWebsocketConsumer):
         return LeaderboardService.get_rankings(self.assessment_id)
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Improve responsive styles and layouts.
