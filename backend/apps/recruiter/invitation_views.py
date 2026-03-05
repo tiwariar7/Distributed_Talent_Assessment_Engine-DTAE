@@ -250,3 +250,5 @@ class CandidateInvitationDetailView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+# Refactor: Update validation checks and constraints.
