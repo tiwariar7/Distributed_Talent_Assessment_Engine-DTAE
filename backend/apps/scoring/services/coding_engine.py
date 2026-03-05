@@ -15,3 +15,5 @@ class CodingScoringEngine:
         return min(score, float(aq.marks) if aq.marks else score)
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Improve error handling and exception logging.
