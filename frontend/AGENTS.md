@@ -6,3 +6,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Optimize query performance and database indexing.
+
+
+- Note: Improve error handling and exception logging.
