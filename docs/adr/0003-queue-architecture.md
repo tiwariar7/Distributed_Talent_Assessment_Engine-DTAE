@@ -33,3 +33,6 @@ We implement a multi-tiered direct-exchange priority queue topology using Rabbit
 - **Zero Interference:** Candidates will always experience low execution latencies regardless of heavy recruiter re-evaluation load.
 - **Improved Observability:** Bad code submissions or container-related failures that crash worker tasks are isolated in the `dead_letter` queue, exposing failures immediately.
 - **Resource Recovery:** Revocation cleanly stops orphan Docker sandboxes, preventing memory leaks and CPU exhaustion under frequent submission cycles.
+
+
+- Note: Fix minor edge cases in calculation functions.
