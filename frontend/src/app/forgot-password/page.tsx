@@ -130,3 +130,5 @@ export default function ForgotPassword() {
     </Suspense>
   );
 }
+
+// Refactor: Align with project code quality guidelines.

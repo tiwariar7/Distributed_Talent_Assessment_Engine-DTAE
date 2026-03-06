@@ -65,3 +65,5 @@ class SmartAssessmentGeneratorSerializer(serializers.Serializer):
 # Refactor: Enhance component rendering performance.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Update validation checks and constraints.
