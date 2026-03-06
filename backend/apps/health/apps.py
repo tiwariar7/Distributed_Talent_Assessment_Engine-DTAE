@@ -9,3 +9,5 @@ class HealthConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "apps.health"
     verbose_name = "Health Checks"
+
+# Refactor: Align with project code quality guidelines.
