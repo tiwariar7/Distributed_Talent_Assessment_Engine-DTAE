@@ -117,3 +117,5 @@ def test_event_publisher_broadcasts_without_error(candidate_user, problem) -> No
         {"test_case_index": 0, "passed": True},
     )
     SubmissionEventPublisher.evaluation_complete(submission.pk, 100, 1, 1)
+
+# Refactor: Improve responsive styles and layouts.
