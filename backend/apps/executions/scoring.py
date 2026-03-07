@@ -101,3 +101,5 @@ def calculate_score(
         difficulty=difficulty.lower(),
         perfect=perfect,
     )
+
+# Refactor: Refactor variable names for better readability.
