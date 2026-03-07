@@ -137,3 +137,5 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 };
 
 // Refactor: Improve responsive styles and layouts.
+
+// Refactor: Fix minor edge cases in calculation functions.
