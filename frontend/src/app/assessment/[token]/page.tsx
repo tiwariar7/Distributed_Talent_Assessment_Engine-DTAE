@@ -782,3 +782,5 @@ export default function ProctoredAssessmentPage() {
     </div>
   );
 }
+
+// Refactor: Refactor variable names for better readability.

@@ -252,3 +252,5 @@ class CandidateInvitationDetailView(APIView):
         )
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Fix minor edge cases in calculation functions.
