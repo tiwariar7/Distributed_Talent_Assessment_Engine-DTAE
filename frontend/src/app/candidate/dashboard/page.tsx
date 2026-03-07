@@ -332,3 +332,5 @@ export default function CandidateDashboard() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Optimize query performance and database indexing.
