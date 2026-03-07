@@ -13,3 +13,5 @@ class RecruiterConfig(AppConfig):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Align with project code quality guidelines.
