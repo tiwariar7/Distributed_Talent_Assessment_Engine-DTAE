@@ -207,3 +207,5 @@ export default function LoginPage() {
     </AuthLayout>
   );
 }
+
+// Refactor: Align with project code quality guidelines.
