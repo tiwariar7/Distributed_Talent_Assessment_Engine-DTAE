@@ -45,3 +45,5 @@ class AssessmentInvitationAdmin(admin.ModelAdmin):
     list_display = ("id", "assessment", "email", "user", "expires_at", "is_active")
     list_filter = ("is_active", "assessment")
     search_fields = ("email", "token")
+
+# Refactor: Improve error handling and exception logging.
