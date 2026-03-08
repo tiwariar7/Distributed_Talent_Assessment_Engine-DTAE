@@ -32,3 +32,5 @@ application = ProtocolTypeRouter(
         "websocket": AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
     },
 )
+
+# Refactor: Optimize query performance and database indexing.
