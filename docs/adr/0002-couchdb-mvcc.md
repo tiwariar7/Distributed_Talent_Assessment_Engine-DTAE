@@ -27,3 +27,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 
 
 - Note: Optimize imports and clean up code structure.
+
+
+- Note: Add typing hints and documentation docstrings.
