@@ -35,3 +35,5 @@ def test_execution_log_returns_entries(mock_repo, api_client, candidate_user, pr
 # Refactor: Optimize imports and clean up code structure.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Update validation checks and constraints.
