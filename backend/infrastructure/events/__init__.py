@@ -5,3 +5,5 @@ from .publisher import SubmissionEventPublisher
 __all__ = ("SubmissionEventPublisher",)
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Add typing hints and documentation docstrings.
