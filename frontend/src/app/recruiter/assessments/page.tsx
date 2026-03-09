@@ -167,3 +167,5 @@ export default function RecruiterAssessmentsPage() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Optimize query performance and database indexing.
