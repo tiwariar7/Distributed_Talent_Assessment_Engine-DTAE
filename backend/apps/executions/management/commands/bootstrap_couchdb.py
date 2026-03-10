@@ -22,3 +22,5 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("CouchDB bootstrap complete."))
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Improve error handling and exception logging.
