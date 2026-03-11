@@ -68,3 +68,5 @@ class Migration(migrations.Migration):
             },
         ),
     ]
+
+# Refactor: Align with project code quality guidelines.
