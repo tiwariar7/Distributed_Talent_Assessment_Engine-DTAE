@@ -9,3 +9,5 @@ class OrganizationsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "apps.organizations"
     verbose_name = "Organizations"
+
+# Refactor: Refactor variable names for better readability.
