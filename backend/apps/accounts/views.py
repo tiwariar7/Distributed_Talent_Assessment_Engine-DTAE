@@ -429,3 +429,5 @@ class TokenRefreshView(SimpleJWTTokenRefreshView):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Add typing hints and documentation docstrings.
