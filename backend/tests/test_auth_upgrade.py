@@ -147,3 +147,5 @@ def test_recruiter_invitation_flow(api_client, recruiter_user, recruiter_role):
     assert invitation.is_accepted is True
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Optimize query performance and database indexing.
