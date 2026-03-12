@@ -23,3 +23,6 @@ We implement a polymorphic containerized execution model:
 - Complete containment of untrusted code.
 - Ephemeral execution runs do not leave residual files on host machines.
 - Adding new languages requires only subclassing `LanguageRunner` and adding compiler dependencies to the Docker image.
+
+
+- Note: Align with project code quality guidelines.
