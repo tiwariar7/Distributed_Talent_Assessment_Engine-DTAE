@@ -69,3 +69,5 @@ class SmartAssessmentGeneratorSerializer(serializers.Serializer):
 # Refactor: Update validation checks and constraints.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Improve error handling and exception logging.

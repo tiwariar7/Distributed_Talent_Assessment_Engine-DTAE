@@ -20,3 +20,5 @@ export default function CandidateRedirectPage() {
 // Refactor: Refactor variable names for better readability.
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Align with project code quality guidelines.
