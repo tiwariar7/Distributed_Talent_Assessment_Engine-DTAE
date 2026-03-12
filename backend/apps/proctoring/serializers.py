@@ -58,3 +58,5 @@ class ProctoringLogSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "timestamp")
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Improve responsive styles and layouts.
