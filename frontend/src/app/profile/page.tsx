@@ -335,3 +335,5 @@ export default function Profile() {
     </DashboardLayout>
   );
 }
+
+// Refactor: Improve error handling and exception logging.
