@@ -26,3 +26,6 @@ We implement a polymorphic containerized execution model:
 
 
 - Note: Align with project code quality guidelines.
+
+
+- Note: Refactor variable names for better readability.
