@@ -119,3 +119,5 @@ def test_event_publisher_broadcasts_without_error(candidate_user, problem) -> No
     SubmissionEventPublisher.evaluation_complete(submission.pk, 100, 1, 1)
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Improve error handling and exception logging.
