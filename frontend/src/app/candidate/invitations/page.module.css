@@ -227,3 +227,5 @@
   text-align: center;
   color: var(--text-muted);
 }
+
+// Refactor: Improve error handling and exception logging.

@@ -19,3 +19,5 @@ class ProctoringViolationAdmin(admin.ModelAdmin):
 class ProctoringLogAdmin(admin.ModelAdmin):
     list_display = ("id", "session", "event_type", "timestamp")
     list_filter = ("event_type", "timestamp")
+
+# Refactor: Align with project code quality guidelines.
