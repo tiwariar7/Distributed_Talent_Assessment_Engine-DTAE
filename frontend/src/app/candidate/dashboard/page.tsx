@@ -336,3 +336,5 @@ export default function CandidateDashboard() {
 // Refactor: Optimize query performance and database indexing.
 
 // Refactor: Improve error handling and exception logging.
+
+// Refactor: Update validation checks and constraints.

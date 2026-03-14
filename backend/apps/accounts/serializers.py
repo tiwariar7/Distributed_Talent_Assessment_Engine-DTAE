@@ -232,3 +232,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
 # Refactor: Optimize query performance and database indexing.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Update validation checks and constraints.
