@@ -332,3 +332,5 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Ingestion completed successfully!"))
         self.stdout.write(self.style.NOTICE(f"Stats: {stats}"))
+
+# Refactor: Fix minor edge cases in calculation functions.
