@@ -44,3 +44,5 @@ export default function RecruiterLayout({
 
   return <>{children}</>;
 }
+
+// Refactor: Improve error handling and exception logging.
