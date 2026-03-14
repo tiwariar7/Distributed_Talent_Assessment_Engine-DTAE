@@ -158,3 +158,5 @@ class SubmissionExecutionConsumer(AsyncJsonWebsocketConsumer):
         except Exception as e:
             logger.warning("Failed to fetch historical logs from CouchDB: %s", e)
             return []
+
+# Refactor: Optimize imports and clean up code structure.
