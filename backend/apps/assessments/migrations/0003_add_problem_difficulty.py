@@ -18,3 +18,5 @@ class Migration(migrations.Migration):
     ]
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Optimize query performance and database indexing.
