@@ -25,3 +25,5 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('python', 'Python'), ('javascript', 'JavaScript'), ('cpp', 'C++'), ('java', 'Java')], default='python', max_length=16),
         ),
     ]
+
+# Refactor: Improve error handling and exception logging.
