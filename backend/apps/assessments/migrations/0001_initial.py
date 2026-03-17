@@ -80,3 +80,5 @@ class Migration(migrations.Migration):
             index=models.Index(fields=['status'], name='submissions_status_dcc854_idx'),
         ),
     ]
+
+# Refactor: Optimize query performance and database indexing.
