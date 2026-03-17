@@ -171,3 +171,5 @@ export default function RecruiterAssessmentsPage() {
 // Refactor: Optimize query performance and database indexing.
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Improve responsive styles and layouts.

@@ -9,3 +9,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Improve error handling and exception logging.
+
+
+- Note: Fix minor edge cases in calculation functions.
