@@ -82,3 +82,5 @@ class Migration(migrations.Migration):
     ]
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Align with project code quality guidelines.
