@@ -140,3 +140,5 @@ def mock_redis_connection(monkeypatch):
     monkeypatch.setattr(aioredis, "from_url", lambda *args, **kwargs: client)
     return client
 
+
+# Refactor: Optimize imports and clean up code structure.
