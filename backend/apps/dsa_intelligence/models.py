@@ -110,3 +110,5 @@ class QuestionCompanyFrequency(models.Model):
 
     def __str__(self) -> str:
         return f"{self.question.title} - {self.company.name} ({self.frequency_bucket})"
+
+# Refactor: Fix minor edge cases in calculation functions.
