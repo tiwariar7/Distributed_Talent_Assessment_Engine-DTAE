@@ -50,3 +50,5 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         return super().validate(attrs)
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Optimize imports and clean up code structure.
