@@ -86,3 +86,5 @@ class DtaeUser(HttpUser):
                             f"/api/v1/executions/submissions/{sub_id}/status/",
                             headers=self.headers
                         )
+
+# Refactor: Add typing hints and documentation docstrings.
