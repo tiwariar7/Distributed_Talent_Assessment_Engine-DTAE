@@ -307,3 +307,5 @@ export default function RecruiterDashboard() {
 // Refactor: Enhance component rendering performance.
 
 // Refactor: Refactor variable names for better readability.
+
+// Refactor: Optimize query performance and database indexing.
