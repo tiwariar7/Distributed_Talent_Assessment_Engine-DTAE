@@ -100,3 +100,5 @@ def test_create_document_on_409_delegates_to_update(couch_client: CouchDBClient)
 
     assert result == {"ok": True}
     couch_client.update_document.assert_called_once()
+
+# Refactor: Improve error handling and exception logging.
