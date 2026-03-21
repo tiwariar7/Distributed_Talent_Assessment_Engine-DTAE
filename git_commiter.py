@@ -913,3 +913,5 @@ if __name__ == '__main__':
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Update validation checks and constraints.
