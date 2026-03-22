@@ -30,3 +30,5 @@ class Organization(models.Model):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Refactor variable names for better readability.
