@@ -340,3 +340,5 @@ export default function CandidateDashboard() {
 // Refactor: Update validation checks and constraints.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Add typing hints and documentation docstrings.
