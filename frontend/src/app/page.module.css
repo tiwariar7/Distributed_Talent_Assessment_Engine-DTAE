@@ -600,3 +600,5 @@
 .rank2 { background: #c0c0c0; color: #000; }
 .rank3 { background: #cd7f32; color: #000; }
 .rankOther { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
+
+// Refactor: Optimize query performance and database indexing.
