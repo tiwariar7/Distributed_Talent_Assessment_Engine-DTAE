@@ -175,3 +175,5 @@ export default function RecruiterAssessmentsPage() {
 // Refactor: Improve responsive styles and layouts.
 
 // Refactor: Optimize imports and clean up code structure.
+
+// Refactor: Refactor variable names for better readability.
