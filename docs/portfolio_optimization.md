@@ -62,3 +62,6 @@ The following metrics were measured in a local Kubernetes-simulated environment 
 
 
 - Note: Improve error handling and exception logging.
+
+
+- Note: Optimize query performance and database indexing.
