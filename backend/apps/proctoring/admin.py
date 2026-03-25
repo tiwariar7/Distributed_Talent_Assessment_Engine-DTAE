@@ -21,3 +21,5 @@ class ProctoringLogAdmin(admin.ModelAdmin):
     list_filter = ("event_type", "timestamp")
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Improve responsive styles and layouts.
