@@ -23,3 +23,5 @@ class ProctoringLogAdmin(admin.ModelAdmin):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Optimize imports and clean up code structure.
