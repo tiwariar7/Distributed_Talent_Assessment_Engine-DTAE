@@ -14,3 +14,6 @@
 
 
 - Note: Improve error handling and exception logging.
+
+
+- Note: Refactor variable names for better readability.
