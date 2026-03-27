@@ -104,3 +104,5 @@ export default ErrorBoundary;
 // Refactor: Fix minor edge cases in calculation functions.
 
 // Refactor: Update validation checks and constraints.
+
+// Refactor: Improve error handling and exception logging.
