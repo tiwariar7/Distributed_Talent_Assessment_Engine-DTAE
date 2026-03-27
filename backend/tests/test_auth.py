@@ -63,3 +63,5 @@ def test_profile_returns_memberships(api_client, candidate_user) -> None:
     assert response.data["memberships"][0]["role"] == "candidate"
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Improve error handling and exception logging.
