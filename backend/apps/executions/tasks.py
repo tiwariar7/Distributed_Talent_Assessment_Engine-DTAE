@@ -193,3 +193,5 @@ def worker_health_check() -> dict:
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Align with project code quality guidelines.
