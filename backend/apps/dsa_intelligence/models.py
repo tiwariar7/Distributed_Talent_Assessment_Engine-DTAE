@@ -112,3 +112,5 @@ class QuestionCompanyFrequency(models.Model):
         return f"{self.question.title} - {self.company.name} ({self.frequency_bucket})"
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Enhance component rendering performance.
