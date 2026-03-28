@@ -11,3 +11,5 @@ class OrganizationsConfig(AppConfig):
     verbose_name = "Organizations"
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Improve responsive styles and layouts.
