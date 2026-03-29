@@ -50,3 +50,5 @@ export default function RecruiterLayout({
 // Refactor: Improve error handling and exception logging.
 
 // Refactor: Improve responsive styles and layouts.
+
+// Refactor: Optimize imports and clean up code structure.
