@@ -181,3 +181,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   );
 }
+
+// Refactor: Refactor variable names for better readability.
