@@ -5,3 +5,5 @@ from .celery import app as celery_app
 __all__ = ("celery_app",)
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Refactor variable names for better readability.
