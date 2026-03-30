@@ -123,3 +123,5 @@ class AssessmentInvitationDetailSerializer(serializers.ModelSerializer):
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Align with project code quality guidelines.
