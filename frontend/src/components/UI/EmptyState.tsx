@@ -57,3 +57,5 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 // Refactor: Update validation checks and constraints.
 
 // Refactor: Fix minor edge cases in calculation functions.
+
+// Refactor: Optimize query performance and database indexing.
