@@ -33,3 +33,5 @@ LEADERBOARD_VIEWS = {
 # Refactor: Update validation checks and constraints.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Optimize query performance and database indexing.
