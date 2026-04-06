@@ -37,3 +37,5 @@ class AntiDoSRateThrottle(AnonRateThrottle):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Align with project code quality guidelines.
