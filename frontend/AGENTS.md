@@ -12,3 +12,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Fix minor edge cases in calculation functions.
+
+
+- Note: Enhance component rendering performance.
