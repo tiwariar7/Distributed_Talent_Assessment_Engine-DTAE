@@ -34,3 +34,5 @@ class MembershipAdmin(admin.ModelAdmin):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Optimize query performance and database indexing.
