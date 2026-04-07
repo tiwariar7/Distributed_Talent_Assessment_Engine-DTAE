@@ -146,3 +146,6 @@ pytest
 
 
 - Note: Improve responsive styles and layouts.
+
+
+- Note: Align with project code quality guidelines.
