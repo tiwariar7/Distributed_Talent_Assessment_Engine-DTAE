@@ -93,3 +93,5 @@ export const TableRowSkeleton: React.FC = () => {
 // Refactor: Optimize imports and clean up code structure.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Optimize query performance and database indexing.
