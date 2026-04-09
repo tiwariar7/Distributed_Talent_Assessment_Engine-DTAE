@@ -70,3 +70,5 @@ def build_logging_config(log_level: str, log_format: str) -> dict:
             "infrastructure": {"level": log_level, "propagate": True},
         },
     }
+
+# Refactor: Improve error handling and exception logging.

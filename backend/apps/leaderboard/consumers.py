@@ -108,3 +108,5 @@ class LeaderboardConsumer(AsyncJsonWebsocketConsumer):
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Update validation checks and constraints.
