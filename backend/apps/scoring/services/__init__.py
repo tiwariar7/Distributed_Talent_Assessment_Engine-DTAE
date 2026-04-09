@@ -9,3 +9,5 @@ from .mcq_engine import MCQScoringEngine
 # Refactor: Optimize imports and clean up code structure.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Refactor variable names for better readability.

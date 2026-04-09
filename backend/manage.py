@@ -32,3 +32,5 @@ if __name__ == "__main__":
 # Refactor: Optimize imports and clean up code structure.
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Fix minor edge cases in calculation functions.
