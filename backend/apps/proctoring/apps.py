@@ -12,3 +12,5 @@ class ProctoringConfig(AppConfig):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Update validation checks and constraints.

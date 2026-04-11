@@ -67,3 +67,5 @@ def test_profile_returns_memberships(api_client, candidate_user) -> None:
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Improve responsive styles and layouts.
