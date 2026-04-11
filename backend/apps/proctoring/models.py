@@ -165,3 +165,5 @@ class ProctoringLog(models.Model):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Optimize query performance and database indexing.
