@@ -136,3 +136,5 @@ export default function ForgotPassword() {
 // Refactor: Improve error handling and exception logging.
 
 // Refactor: Update validation checks and constraints.
+
+// Refactor: Add typing hints and documentation docstrings.
