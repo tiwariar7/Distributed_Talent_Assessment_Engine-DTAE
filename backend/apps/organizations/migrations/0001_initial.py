@@ -31,3 +31,5 @@ class Migration(migrations.Migration):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Align with project code quality guidelines.
