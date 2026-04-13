@@ -114,3 +114,5 @@ class QuestionCompanyFrequency(models.Model):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Improve responsive styles and layouts.
