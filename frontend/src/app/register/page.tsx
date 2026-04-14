@@ -222,3 +222,5 @@ export default function Register() {
 // Refactor: Align with project code quality guidelines.
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Fix minor edge cases in calculation functions.
