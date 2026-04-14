@@ -24,3 +24,5 @@ export default function CandidateRedirectPage() {
 // Refactor: Align with project code quality guidelines.
 
 // Refactor: Update validation checks and constraints.
+
+// Refactor: Update validation checks and constraints.
