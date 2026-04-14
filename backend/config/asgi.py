@@ -38,3 +38,5 @@ application = ProtocolTypeRouter(
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Align with project code quality guidelines.

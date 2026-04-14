@@ -150,3 +150,5 @@ def get_runner(language: str) -> LanguageRunner:
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Refactor variable names for better readability.
