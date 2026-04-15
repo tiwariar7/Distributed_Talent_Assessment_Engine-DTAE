@@ -138,3 +138,5 @@ def test_publish_assessment_success(mock_repository, recruiter_client, organizat
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Refactor variable names for better readability.
