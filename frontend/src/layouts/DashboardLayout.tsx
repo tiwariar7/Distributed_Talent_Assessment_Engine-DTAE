@@ -189,3 +189,5 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
 // Refactor: Optimize imports and clean up code structure.
 
 // Refactor: Update validation checks and constraints.
+
+// Refactor: Optimize query performance and database indexing.
