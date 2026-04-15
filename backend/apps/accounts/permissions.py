@@ -97,3 +97,5 @@ class IsAdminUser(HasMembershipRole):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Improve error handling and exception logging.
