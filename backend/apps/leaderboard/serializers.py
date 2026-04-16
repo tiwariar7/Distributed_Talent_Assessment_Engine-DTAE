@@ -24,3 +24,5 @@ class LeaderboardEntrySerializer(serializers.Serializer):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Update validation checks and constraints.
