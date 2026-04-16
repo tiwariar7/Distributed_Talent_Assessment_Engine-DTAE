@@ -602,3 +602,5 @@
 .rankOther { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Refactor variable names for better readability.
