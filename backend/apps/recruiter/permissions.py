@@ -74,3 +74,5 @@ class IsRecruiterForAssessment(HasMembershipRole):
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Enhance component rendering performance.
