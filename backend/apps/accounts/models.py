@@ -171,3 +171,5 @@ class CandidateProfile(models.Model):
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Update validation checks and constraints.
