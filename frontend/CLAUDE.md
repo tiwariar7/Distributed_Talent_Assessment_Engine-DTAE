@@ -17,3 +17,6 @@
 
 
 - Note: Refactor variable names for better readability.
+
+
+- Note: Align with project code quality guidelines.
