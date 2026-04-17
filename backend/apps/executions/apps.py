@@ -21,3 +21,5 @@ class ExecutionsConfig(AppConfig):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Add typing hints and documentation docstrings.
+
+# Refactor: Refactor variable names for better readability.
