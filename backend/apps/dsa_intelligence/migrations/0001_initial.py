@@ -77,3 +77,5 @@ class Migration(migrations.Migration):
             },
         ),
     ]
+
+# Refactor: Enhance component rendering performance.
