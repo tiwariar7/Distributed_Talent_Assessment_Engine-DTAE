@@ -41,3 +41,5 @@ class AntiDoSRateThrottle(AnonRateThrottle):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Fix minor edge cases in calculation functions.
