@@ -428,3 +428,5 @@ export default function RecruiterAssessmentDetailsPage() {
 // Refactor: Refactor variable names for better readability.
 
 // Refactor: Enhance component rendering performance.
+
+// Refactor: Enhance component rendering performance.
