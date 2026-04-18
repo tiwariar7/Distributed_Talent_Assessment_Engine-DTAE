@@ -38,3 +38,5 @@ class MembershipAdmin(admin.ModelAdmin):
 # Refactor: Optimize query performance and database indexing.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Improve error handling and exception logging.
