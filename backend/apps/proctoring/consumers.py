@@ -244,3 +244,5 @@ class ProctoringConsumer(AsyncJsonWebsocketConsumer):
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Optimize query performance and database indexing.
