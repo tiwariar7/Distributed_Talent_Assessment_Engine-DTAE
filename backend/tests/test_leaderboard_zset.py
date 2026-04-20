@@ -100,3 +100,5 @@ def test_leaderboard_max_score_aggregation(candidate_user, recruiter_user, organ
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Update validation checks and constraints.

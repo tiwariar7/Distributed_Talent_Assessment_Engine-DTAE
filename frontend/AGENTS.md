@@ -15,3 +15,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Enhance component rendering performance.
+
+
+- Note: Refactor variable names for better readability.
