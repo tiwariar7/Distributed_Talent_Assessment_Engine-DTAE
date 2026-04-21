@@ -120,3 +120,5 @@ class QuestionCompanyFrequency(models.Model):
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Add typing hints and documentation docstrings.
