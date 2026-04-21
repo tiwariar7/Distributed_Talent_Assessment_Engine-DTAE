@@ -283,3 +283,5 @@ export default function LandingPage() {
 // Refactor: Refactor variable names for better readability.
 
 // Refactor: Fix minor edge cases in calculation functions.
+
+// Refactor: Optimize imports and clean up code structure.
