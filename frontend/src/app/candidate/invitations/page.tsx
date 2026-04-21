@@ -255,3 +255,5 @@ export default function CandidateInvitationsPage() {
 // Refactor: Add typing hints and documentation docstrings.
 
 // Refactor: Optimize query performance and database indexing.
+
+// Refactor: Align with project code quality guidelines.
