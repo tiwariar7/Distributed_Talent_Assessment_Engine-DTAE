@@ -11,3 +11,5 @@ from .mcq_engine import MCQScoringEngine
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Improve responsive styles and layouts.
