@@ -30,3 +30,5 @@ class Command(BaseCommand):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Improve error handling and exception logging.
