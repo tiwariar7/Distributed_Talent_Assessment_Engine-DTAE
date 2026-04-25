@@ -55,3 +55,5 @@ class AssessmentInvitationAdmin(admin.ModelAdmin):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Improve responsive styles and layouts.
