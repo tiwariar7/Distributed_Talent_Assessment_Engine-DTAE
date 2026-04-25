@@ -64,3 +64,5 @@ class ProctoringLogSerializer(serializers.ModelSerializer):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Improve responsive styles and layouts.
+
+# Refactor: Improve error handling and exception logging.

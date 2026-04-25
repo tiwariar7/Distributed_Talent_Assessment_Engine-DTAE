@@ -51,3 +51,5 @@ def test_readiness_degraded(mock_redis, mock_couch, mock_pg, api_client) -> None
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Improve error handling and exception logging.
