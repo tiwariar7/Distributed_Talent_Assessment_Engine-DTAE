@@ -149,3 +149,5 @@ def test_recruiter_invitation_flow(api_client, recruiter_user, recruiter_role):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Optimize query performance and database indexing.
