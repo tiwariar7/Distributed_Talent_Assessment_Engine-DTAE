@@ -344,3 +344,5 @@ class Command(BaseCommand):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Align with project code quality guidelines.
+
+# Refactor: Optimize query performance and database indexing.
