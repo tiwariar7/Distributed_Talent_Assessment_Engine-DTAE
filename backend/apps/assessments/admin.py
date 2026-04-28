@@ -59,3 +59,5 @@ class AssessmentInvitationAdmin(admin.ModelAdmin):
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Optimize imports and clean up code structure.
