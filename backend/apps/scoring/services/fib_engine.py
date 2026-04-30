@@ -68,3 +68,5 @@ class FIBScoringEngine:
 # Refactor: Enhance component rendering performance.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Update validation checks and constraints.
