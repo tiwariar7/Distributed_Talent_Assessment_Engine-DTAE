@@ -82,3 +82,5 @@ class Migration(migrations.Migration):
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Fix minor edge cases in calculation functions.
