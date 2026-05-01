@@ -16,3 +16,5 @@ class DsaIntelligenceConfig(AppConfig):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Refactor variable names for better readability.
