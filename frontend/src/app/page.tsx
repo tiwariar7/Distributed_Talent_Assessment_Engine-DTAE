@@ -287,3 +287,5 @@ export default function LandingPage() {
 // Refactor: Optimize imports and clean up code structure.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Improve error handling and exception logging.

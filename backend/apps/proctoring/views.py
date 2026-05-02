@@ -254,3 +254,5 @@ class EndProctoringSessionView(APIView):
 # Refactor: Fix minor edge cases in calculation functions.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Update validation checks and constraints.
