@@ -18,3 +18,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Refactor variable names for better readability.
+
+
+- Note: Add typing hints and documentation docstrings.
