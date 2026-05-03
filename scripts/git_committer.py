@@ -344,3 +344,5 @@ if __name__ == "__main__":
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Add typing hints and documentation docstrings.
