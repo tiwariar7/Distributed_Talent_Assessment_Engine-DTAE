@@ -104,3 +104,5 @@ def test_leaderboard_max_score_aggregation(candidate_user, recruiter_user, organ
 # Refactor: Update validation checks and constraints.
 
 # Refactor: Update validation checks and constraints.
+
+# Refactor: Add typing hints and documentation docstrings.
