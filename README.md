@@ -152,3 +152,6 @@ pytest
 
 
 - Note: Align with project code quality guidelines.
+
+
+- Note: Fix minor edge cases in calculation functions.
