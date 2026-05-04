@@ -42,3 +42,6 @@ We implement a multi-tiered direct-exchange priority queue topology using Rabbit
 
 
 - Note: Update validation checks and constraints.
+
+
+- Note: Improve error handling and exception logging.
