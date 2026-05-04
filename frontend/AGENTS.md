@@ -21,3 +21,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 
 - Note: Add typing hints and documentation docstrings.
+
+
+- Note: Improve responsive styles and layouts.
