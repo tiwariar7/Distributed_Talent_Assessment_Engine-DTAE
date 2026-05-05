@@ -49,3 +49,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 - Note: Update validation checks and constraints.
+
+
+- Note: Align with project code quality guidelines.
