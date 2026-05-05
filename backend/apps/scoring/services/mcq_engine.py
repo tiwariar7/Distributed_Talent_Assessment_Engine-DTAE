@@ -44,3 +44,5 @@ class MCQScoringEngine:
             return float(-aq.negative_marks)
 
         return 0.0
+
+# Refactor: Update validation checks and constraints.
