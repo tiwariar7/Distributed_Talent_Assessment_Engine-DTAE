@@ -63,3 +63,5 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 // Refactor: Improve responsive styles and layouts.
 
 // Refactor: Improve responsive styles and layouts.
+
+// Refactor: Fix minor edge cases in calculation functions.
