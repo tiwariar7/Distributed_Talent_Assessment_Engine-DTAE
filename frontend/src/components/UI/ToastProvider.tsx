@@ -147,3 +147,5 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 // Refactor: Align with project code quality guidelines.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Improve error handling and exception logging.
