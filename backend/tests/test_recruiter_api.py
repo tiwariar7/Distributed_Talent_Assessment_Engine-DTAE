@@ -142,3 +142,5 @@ def test_publish_assessment_success(mock_repository, recruiter_client, organizat
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Optimize imports and clean up code structure.
+
+# Refactor: Improve error handling and exception logging.
