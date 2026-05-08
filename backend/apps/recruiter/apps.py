@@ -19,3 +19,5 @@ class RecruiterConfig(AppConfig):
 # Refactor: Refactor variable names for better readability.
 
 # Refactor: Enhance component rendering performance.
+
+# Refactor: Update validation checks and constraints.

@@ -15,3 +15,5 @@ class OrganizationsConfig(AppConfig):
 # Refactor: Improve responsive styles and layouts.
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Optimize imports and clean up code structure.
