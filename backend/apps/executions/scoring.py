@@ -115,3 +115,5 @@ def calculate_score(
 # Refactor: Improve error handling and exception logging.
 
 # Refactor: Optimize query performance and database indexing.
+
+# Refactor: Optimize imports and clean up code structure.
