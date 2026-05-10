@@ -72,3 +72,5 @@ def build_logging_config(log_level: str, log_format: str) -> dict:
     }
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Update validation checks and constraints.
