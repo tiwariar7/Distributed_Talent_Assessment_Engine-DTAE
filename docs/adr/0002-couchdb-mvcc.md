@@ -36,3 +36,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 
 
 - Note: Enhance component rendering performance.
+
+
+- Note: Add typing hints and documentation docstrings.
