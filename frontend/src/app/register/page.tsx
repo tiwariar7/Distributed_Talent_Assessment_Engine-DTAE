@@ -226,3 +226,5 @@ export default function Register() {
 // Refactor: Fix minor edge cases in calculation functions.
 
 // Refactor: Improve responsive styles and layouts.
+
+// Refactor: Fix minor edge cases in calculation functions.
