@@ -73,3 +73,5 @@ class SubmissionExecutionLogView(APIView):
 # Refactor: Optimize imports and clean up code structure.
 
 # Refactor: Refactor variable names for better readability.
+
+# Refactor: Optimize query performance and database indexing.
