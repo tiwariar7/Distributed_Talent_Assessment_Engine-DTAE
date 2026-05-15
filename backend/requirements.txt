@@ -62,3 +62,6 @@ responses>=0.25,<1.0
 
 
 - Note: Improve error handling and exception logging.
+
+
+- Note: Improve responsive styles and layouts.
