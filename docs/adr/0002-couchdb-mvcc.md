@@ -39,3 +39,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 
 
 - Note: Add typing hints and documentation docstrings.
+
+
+- Note: Improve responsive styles and layouts.
