@@ -16,3 +16,5 @@ class ScoringConfig(AppConfig):
 # Refactor: Add typing hints and documentation docstrings.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Optimize query performance and database indexing.
