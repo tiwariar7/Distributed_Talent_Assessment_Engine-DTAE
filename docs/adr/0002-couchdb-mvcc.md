@@ -42,3 +42,6 @@ To handle concurrent edits without distributed application-level locks, we lever
 
 
 - Note: Improve responsive styles and layouts.
+
+
+- Note: Fix minor edge cases in calculation functions.
