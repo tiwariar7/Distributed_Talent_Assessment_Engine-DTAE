@@ -48,3 +48,6 @@ We implement a multi-tiered direct-exchange priority queue topology using Rabbit
 
 
 - Note: Enhance component rendering performance.
+
+
+- Note: Add typing hints and documentation docstrings.
