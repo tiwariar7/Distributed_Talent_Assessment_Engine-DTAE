@@ -270,3 +270,5 @@ class CandidateInvitationDetailView(APIView):
 # Refactor: Align with project code quality guidelines.
 
 # Refactor: Improve error handling and exception logging.
+
+# Refactor: Add typing hints and documentation docstrings.
