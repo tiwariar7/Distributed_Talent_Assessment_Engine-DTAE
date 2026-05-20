@@ -144,3 +144,5 @@ export default function ForgotPassword() {
 // Refactor: Refactor variable names for better readability.
 
 // Refactor: Optimize imports and clean up code structure.
+
+// Refactor: Fix minor edge cases in calculation functions.
