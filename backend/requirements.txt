@@ -65,3 +65,6 @@ responses>=0.25,<1.0
 
 
 - Note: Improve responsive styles and layouts.
+
+
+- Note: Align with project code quality guidelines.
