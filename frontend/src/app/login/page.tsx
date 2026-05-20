@@ -217,3 +217,5 @@ export default function LoginPage() {
 // Refactor: Update validation checks and constraints.
 
 // Refactor: Align with project code quality guidelines.
+
+// Refactor: Refactor variable names for better readability.
