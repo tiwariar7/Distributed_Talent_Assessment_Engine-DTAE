@@ -345,3 +345,5 @@ export default function Profile() {
 // Refactor: Improve responsive styles and layouts.
 
 // Refactor: Improve responsive styles and layouts.
+
+// Refactor: Fix minor edge cases in calculation functions.
