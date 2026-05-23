@@ -8,3 +8,5 @@
 # Refactor: Update validation checks and constraints.
 
 # Refactor: Fix minor edge cases in calculation functions.
+
+# Refactor: Refactor variable names for better readability.
