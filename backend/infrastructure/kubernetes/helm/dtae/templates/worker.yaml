@@ -1,0 +1,72 @@
+{{- range $lang := list "python" "cpp" "java" "javascript" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dtae.fullname" $ }}-celery-worker-{{ $lang }}
+  labels:
+    {{- include "dtae.labels" $ | nindent 4 }}
+    app: celery-worker
+    language: {{ $lang }}
+spec:
+  replicas: {{ index $.Values.replicaCount (printf "worker%s" ($lang | title)) }}
+  selector:
+    matchLabels:
+      app: celery-worker
+      language: {{ $lang }}
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+        language: {{ $lang }}
+    spec:
+      containers:
+        - name: worker
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: ["celery", "-A", "config", "worker", "-Q", "lang_{{ $lang }},high_priority,medium_priority,low_priority,maintenance", "-l", "info", "-n", "{{ $lang }}-worker@%h"]
+          env:
+            - name: DJANGO_DEBUG
+              value: "False"
+            - name: POSTGRES_DB
+              value: {{ $.Values.postgres.db | quote }}
+            - name: POSTGRES_USER
+              value: {{ $.Values.postgres.user | quote }}
+            - name: POSTGRES_PASSWORD
+              value: {{ $.Values.postgres.password | quote }}
+            - name: POSTGRES_HOST
+              value: "postgres"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: COUCHDB_URL
+              value: "http://couchdb:5984"
+            - name: COUCHDB_USER
+              value: {{ $.Values.couchdb.user | quote }}
+            - name: COUCHDB_PASSWORD
+              value: {{ $.Values.couchdb.password | quote }}
+            - name: COUCHDB_DATABASE
+              value: {{ $.Values.couchdb.db | quote }}
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+            - name: REDIS_CACHE_URL
+              value: "redis://redis:6379/1"
+            - name: RABBITMQ_URL
+              value: "amqp://guest:guest@rabbitmq:5672//"
+            - name: MINIO_ENDPOINT
+              value: "minio:9000"
+            - name: MINIO_ACCESS_KEY
+              value: {{ $.Values.minio.accessKey | quote }}
+            - name: MINIO_SECRET_KEY
+              value: {{ $.Values.minio.secretKey | quote }}
+            - name: MINIO_BUCKET_NAME
+              value: {{ $.Values.minio.bucketName | quote }}
+          volumeMounts:
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+          resources:
+            {{- toYaml $.Values.resources.worker | nindent 12 }}
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+---
+{{- end }}

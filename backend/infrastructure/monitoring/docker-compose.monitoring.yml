@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: dtae-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - dtae-monitor-net
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.55
+    container_name: dtae-jaeger
+    ports:
+      - "16686:16686"  # UI
+      - "4317:4317"    # OTLP gRPC port
+      - "4318:4318"    # OTLP HTTP port
+    networks:
+      - dtae-monitor-net
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: dtae-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./grafana-dashboard.json:/var/lib/grafana/dashboards/dtae.json
+      - ./grafana-provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - dtae-monitor-net
+
+networks:
+  dtae-monitor-net:
+    name: dtae_monitor_network
+    driver: bridge
