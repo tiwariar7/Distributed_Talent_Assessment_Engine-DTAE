@@ -1,1 +1,0 @@
-# DSA Intelligence application initialization.
