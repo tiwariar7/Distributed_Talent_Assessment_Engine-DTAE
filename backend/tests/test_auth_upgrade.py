@@ -36,7 +36,13 @@ def test_recruiter_register_onboarding_organization(api_client, recruiter_role):
 
 
 @pytest.mark.django_db
-def test_login_brute_force_lockout(api_client, candidate_user):
+def test_login_brute_force_lockout(api_client, candidate_user, monkeypatch):
+    # Disable the login endpoint rate throttle to only test brute-force lockout
+    monkeypatch.setattr(
+        "apps.accounts.throttles.LoginRateThrottle.allow_request",
+        lambda self, request, view: True
+    )
+
     # Reset cache keys
     email = candidate_user.email
     cache.delete(f"lockout:{email}")
@@ -56,7 +62,7 @@ def test_login_brute_force_lockout(api_client, candidate_user):
     # The 6th attempt should be locked out (returns 429)
     response = api_client.post(url, {"email": email, "password": "WrongPassword"})
     assert response.status_code == status.HTTP_429_TOO_MANY_REQUESTS
-    assert "locked" in response.data["detail"]
+    assert "locked" in response.json()["error"]["detail"]
 
     # Lockout audit log should be present
     assert AuditLog.objects.filter(user=candidate_user, action="account_lockout").exists()

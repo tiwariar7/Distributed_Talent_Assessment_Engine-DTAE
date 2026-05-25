@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { decodeToken, isRecruiter, isCandidate, getUserDisplayName, DecodedToken } from "../services/auth";
-import { registerTokenGetter, registerLogoutHandler, apiPost } from "../services/api";
+import { registerTokenGetter, registerLogoutHandler, apiPost, setAccessToken } from "../services/api";
 
 interface UserProfile {
   id: number;
@@ -24,27 +24,6 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Helper to get/set refresh token via secure client cookie
-const getRefreshCookie = (): string | null => {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/dtae_refresh=([^;]+)/);
-  return match ? decodeURIComponent(csrfEscape(match[1])) : null;
-};
-
-const setRefreshCookie = (token: string | null) => {
-  if (typeof document === "undefined") return;
-  if (token) {
-    document.cookie = `dtae_refresh=${encodeURIComponent(token)}; path=/; max-age=604800; SameSite=Strict; Secure`;
-  } else {
-    document.cookie = "dtae_refresh=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-  }
-};
-
-// Escapes potential injection characters
-function csrfEscape(str: string): string {
-  return str.replace(/[<>&'"]/g, "");
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setTokenState] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -53,12 +32,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Set up stateless API bindings to retrieve token from React state
   const getAccessToken = useCallback(() => token, [token]);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    try {
+      await apiPost("/api/v1/auth/logout/", {});
+    } catch (err) {
+      console.warn("Logout endpoint error:", err);
+    }
     setTokenState(null);
+    setAccessToken(null);
     setUser(null);
-    setRefreshCookie(null);
     if (typeof window !== "undefined") {
-      // Clear token references on logout
       window.dispatchEvent(new Event("auth_logout"));
     }
   }, []);
@@ -87,32 +70,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     setTokenState(accessToken);
+    setAccessToken(accessToken);
     setUser(profile);
     return decoded;
   }, [logout]);
 
   const refreshToken = useCallback(async () => {
-    const refresh = getRefreshCookie();
-    if (!refresh) {
-      logout();
-      setLoading(false);
-      return;
-    }
-
     try {
-      // Refresh JWT token from simplejwt endpoint
+      // Refresh JWT token using the httpOnly cookie sent by the browser
       const data = await apiPost<{ access: string }>(
         "/api/v1/auth/refresh/",
-        { refresh }
+        {}
       );
       handleDecodedToken(data.access);
     } catch (err) {
-      console.error("Token refresh failed:", err);
-      logout();
+      // If refresh fails, clear authenticated state
+      setTokenState(null);
+      setAccessToken(null);
+      setUser(null);
     } finally {
       setLoading(false);
     }
-  }, [handleDecodedToken, logout]);
+  }, [handleDecodedToken]);
 
   // Bootstrapping session on mount
   useEffect(() => {
@@ -140,12 +119,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string): Promise<UserProfile> => {
     setLoading(true);
     try {
-      const data = await apiPost<{ access: string; refresh: string }>(
+      const data = await apiPost<{ access: string }>(
         "/api/v1/auth/login/",
         { email, password }
       );
 
-      setRefreshCookie(data.refresh);
       const profile = {
         id: decodeToken(data.access)?.user_id || 0,
         email,
@@ -155,6 +133,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       };
 
       setTokenState(data.access);
+      setAccessToken(data.access);
       setUser(profile);
       return profile;
     } catch (err: any) {

@@ -32,6 +32,20 @@ def test_submission_queues_execution(
     mock_apply_async.return_value.id = "mock-task-id-123"
     api_client.force_authenticate(user=candidate_user)
 
+    from apps.assessments.models import AssessmentInvitation
+    from django.utils import timezone
+    from datetime import timedelta
+    AssessmentInvitation.objects.create(
+        assessment=problem.assessment,
+        email=candidate_user.email,
+        user=candidate_user,
+        token="test_token_123",
+        expires_at=timezone.now() + timedelta(days=1),
+        started_at=timezone.now(),
+        is_active=True,
+        status=AssessmentInvitation.InvitationStatus.STARTED,
+    )
+
     with patch("apps.executions.services.DocumentRepository") as mock_repo:
         mock_repo.return_value.save_source_code.return_value = "source_doc_1"
         mock_repo.return_value.create_execution_log.return_value = "log_doc_1"
@@ -90,6 +104,20 @@ def test_submission_rate_limit(mock_apply_async, monkeypatch, candidate_user, pr
     client = APIClient()
     client.force_authenticate(user=candidate_user)
     cache.clear()
+
+    from apps.assessments.models import AssessmentInvitation
+    from django.utils import timezone
+    from datetime import timedelta
+    AssessmentInvitation.objects.create(
+        assessment=problem.assessment,
+        email=candidate_user.email,
+        user=candidate_user,
+        token="test_token_456",
+        expires_at=timezone.now() + timedelta(days=1),
+        started_at=timezone.now(),
+        is_active=True,
+        status=AssessmentInvitation.InvitationStatus.STARTED,
+    )
 
     with patch("apps.executions.services.DocumentRepository") as mock_repo:
         mock_repo.return_value.save_source_code.return_value = "source_doc"

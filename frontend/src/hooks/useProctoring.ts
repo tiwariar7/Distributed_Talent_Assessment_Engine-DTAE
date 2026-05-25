@@ -204,8 +204,8 @@ export function useProctoring({
   useEffect(() => {
     if (!invitationId || !token) return;
 
-    const wsUrl = `${getWsBase()}/ws/proctoring/${invitationId}/?token=${token}`;
-    const ws = new WebSocket(wsUrl);
+    const wsUrl = `${getWsBase()}/ws/proctoring/${invitationId}/`;
+    const ws = new WebSocket(wsUrl, ["access_token", token]);
     wsRef.current = ws;
 
     ws.onopen = () => {

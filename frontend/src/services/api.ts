@@ -6,6 +6,11 @@
 // Global stateless hooks for token extraction & callbacks
 let getAccessTokenFn: () => string | null = () => null;
 let triggerLogoutFn: () => void = () => {};
+let activeAccessToken: string | null = null;
+
+export function setAccessToken(token: string | null) {
+  activeAccessToken = token;
+}
 
 export function registerTokenGetter(fn: () => string | null) {
   getAccessTokenFn = fn;
@@ -45,7 +50,7 @@ export async function authFetch(
   url: string,
   options: RequestInit = {}
 ): Promise<Response> {
-  const token = getAccessTokenFn();
+  const token = activeAccessToken || getAccessTokenFn();
   const fullUrl = url.startsWith("http") ? url : `${API_BASE}${url}`;
 
   const headers: Record<string, string> = {
@@ -71,10 +76,14 @@ export async function authFetch(
   const response = await fetch(fullUrl, {
     ...options,
     headers,
+    credentials: "include",
   });
 
   if (response.status === 401) {
-    triggerLogoutFn();
+    const isAuthEndpoint = url.includes("/auth/login/") || url.includes("/auth/logout/") || url.includes("/auth/refresh/");
+    if (!isAuthEndpoint) {
+      triggerLogoutFn();
+    }
   }
 
   return response;
@@ -91,7 +100,12 @@ export async function apiFetch<T = unknown>(
     if (!response.ok) {
       let errorData: any = {};
       try {
-        errorData = await response.json();
+        const json = await response.json();
+        if (json && typeof json === "object" && "success" in json && "error" in json) {
+          errorData = json.error || json;
+        } else {
+          errorData = json;
+        }
       } catch {
         // Fallback for non-JSON responses
       }
@@ -108,7 +122,11 @@ export async function apiFetch<T = unknown>(
       return undefined as T;
     }
 
-    return response.json();
+    const json = await response.json();
+    if (json && typeof json === "object" && "success" in json && "data" in json) {
+      return json.data as T;
+    }
+    return json as T;
   } catch (err: any) {
     if (err.message && !err.statusCode) {
       // General network error

@@ -394,6 +394,34 @@ class AssessmentReport(models.Model):
     def __str__(self) -> str:
         return f"Report: {self.candidate.email} - {self.assessment.title}"
 
+
+class SubmissionDraft(models.Model):
+    """
+    Stores autosaved code/answer drafts for active candidate assessment sessions.
+    Keeps only the latest state per candidate per problem to prevent DB bloat.
+    """
+    candidate = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="submission_drafts",
+    )
+    problem = models.ForeignKey(
+        Problem,
+        on_delete=models.CASCADE,
+        related_name="submission_drafts",
+    )
+    source_code = models.TextField(blank=True, default="")
+    selected_options = models.JSONField(default=list, blank=True)
+    submitted_text = models.TextField(blank=True, default="")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "submission_drafts"
+        unique_together = ("candidate", "problem")
+
+    def __str__(self) -> str:
+        return f"Draft for User {self.candidate_id} on Problem {self.problem_id}"
+
 # Refactor: Optimize query performance and database indexing.
 
 # Refactor: Fix minor edge cases in calculation functions.

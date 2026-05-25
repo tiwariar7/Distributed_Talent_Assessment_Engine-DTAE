@@ -8,6 +8,18 @@ import { useProctoring } from "../../../hooks/useProctoring";
 import { getWsBase, apiFetch, apiPost, authFetch } from "../../../services/api";
 import { useAuth } from "../../../hooks/useAuth";
 
+interface MCQOption {
+  id: number;
+  option_text: string;
+  display_order: number;
+}
+
+interface SampleTestCase {
+  input: string;
+  expected_output: string;
+  is_sample: boolean;
+}
+
 interface Problem {
   id: number;
   title: string;
@@ -17,6 +29,10 @@ interface Problem {
   time_limit_ms: number;
   memory_limit_mb: number;
   display_order: number;
+  question_type: "coding" | "mcq" | "fib";
+  mcq_options?: MCQOption[];
+  is_multiple_choice?: boolean;
+  sample_test_cases?: SampleTestCase[];
 }
 
 interface Assessment {
@@ -50,6 +66,8 @@ export default function ProctoredAssessmentPage() {
   const [assessment, setAssessment] = useState<Assessment | null>(null);
   const [selectedProblem, setSelectedProblem] = useState<Problem | null>(null);
   const [code, setCode] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [submittedText, setSubmittedText] = useState("");
 
   // Exam phase status
   const [isSetupPhase, setIsSetupPhase] = useState(true);
@@ -189,21 +207,66 @@ export default function ProctoredAssessmentPage() {
     return () => clearInterval(timer);
   }, [isExamActive, timeLeft]);
 
-  // Set default solution template when problem changes
+  // Set default solution template when problem changes, and load draft if available
   useEffect(() => {
     if (!selectedProblem) return;
-    if (selectedProblem.language === "python") {
-      setCode(`def solve():\n    # Write your solution here\n    # Read inputs using input()\n    pass\n\nsolve()\n`);
-    } else if (selectedProblem.language === "javascript") {
-      setCode(`const fs = require('fs');\n\nfunction solve() {\n    const input = fs.readFileSync('/dev/stdin', 'utf-8');\n    // Write your solution here\n}\n\nsolve();\n`);
-    } else if (selectedProblem.language === "cpp") {
-      setCode(`#include <iostream>\nusing namespace std;\n\nint main() {\n    // Write your solution here\n    return 0;\n}\n`);
-    } else {
-      setCode(`import java.util.Scanner;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        // Write your solution here\n    }\n}\n`);
+    
+    // Set default states first
+    if (selectedProblem.question_type === "coding") {
+      if (selectedProblem.language === "python") {
+        setCode(`def solve():\n    # Write your solution here\n    # Read inputs using input()\n    pass\n\nsolve()\n`);
+      } else if (selectedProblem.language === "javascript") {
+        setCode(`const fs = require('fs');\n\nfunction solve() {\n    const input = fs.readFileSync('/dev/stdin', 'utf-8');\n    // Write your solution here\n}\n\nsolve();\n`);
+      } else if (selectedProblem.language === "cpp") {
+        setCode(`#include <iostream>\nusing namespace std;\n\nint main() {\n    // Write your solution here\n    return 0;\n}\n`);
+      } else {
+        setCode(`import java.util.Scanner;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        // Write your solution here\n    }\n}\n`);
+      }
+    } else if (selectedProblem.question_type === "mcq") {
+      setSelectedOptions([]);
+    } else if (selectedProblem.question_type === "fib") {
+      setSubmittedText("");
     }
+
+    // Try to load draft from autosave
+    apiFetch<any>(`/api/v1/assessments/problems/${selectedProblem.id}/autosave/`)
+      .then((draft) => {
+        if (selectedProblem.question_type === "coding" && draft.source_code) {
+          setCode(draft.source_code);
+        } else if (selectedProblem.question_type === "mcq" && draft.selected_options) {
+          setSelectedOptions(draft.selected_options);
+        } else if (selectedProblem.question_type === "fib" && draft.submitted_text !== undefined) {
+          setSubmittedText(draft.submitted_text);
+        }
+      })
+      .catch((err) => console.log("No autosaved draft found:", err));
+
     setLogs([]);
     setSubmissionStatus(null);
   }, [selectedProblem]);
+
+  // Debounced autosave scheduler
+  useEffect(() => {
+    if (!selectedProblem || !isExamActive || timeLeft <= 0) return;
+
+    const timer = setTimeout(() => {
+      const payload: Record<string, any> = {};
+      if (selectedProblem.question_type === "coding") {
+        payload.source_code = code;
+      } else if (selectedProblem.question_type === "mcq") {
+        payload.selected_options = selectedOptions;
+      } else if (selectedProblem.question_type === "fib") {
+        payload.submitted_text = submittedText;
+      }
+
+      authFetch(`/api/v1/assessments/problems/${selectedProblem.id}/autosave/`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }).catch((err) => console.error("Autosave failed:", err));
+    }, 1500); // 1.5s debounce
+
+    return () => clearTimeout(timer);
+  }, [code, selectedOptions, submittedText, selectedProblem, isExamActive, timeLeft]);
 
   // Auto-scroll logs
   useEffect(() => {
@@ -327,25 +390,46 @@ export default function ProctoredAssessmentPage() {
     };
   };
 
-  // Submit Code solution
-  const submitCode = async () => {
+  const handleOptionToggle = (optionId: number) => {
+    if (selectedProblem?.is_multiple_choice) {
+      setSelectedOptions((prev) =>
+        prev.includes(optionId)
+          ? prev.filter((id) => id !== optionId)
+          : [...prev, optionId]
+      );
+    } else {
+      setSelectedOptions([optionId]);
+    }
+  };
+
+  // Submit answer (MCQ, FIB, or Coding)
+  const submitAnswer = async () => {
     if (!selectedProblem || !assessment) return;
 
     setSubmissionStatus("Submitting...");
     setLogs([
       {
         id: "init",
-        message: `Initializing sandboxed execution environment...`,
+        message: `Initializing submission validation...`,
         type: "info",
       },
     ]);
+
+    const payload: Record<string, any> = {};
+    if (selectedProblem.question_type === "coding") {
+      payload.source_code = code;
+    } else if (selectedProblem.question_type === "mcq") {
+      payload.selected_options = selectedOptions;
+    } else if (selectedProblem.question_type === "fib") {
+      payload.submitted_text = submittedText;
+    }
 
     try {
       const res = await authFetch(
         `/api/v1/assessments/problems/${selectedProblem.id}/submissions/`,
         {
           method: "POST",
-          body: JSON.stringify({ source_code: code }),
+          body: JSON.stringify(payload),
         }
       );
 
@@ -363,28 +447,43 @@ export default function ProctoredAssessmentPage() {
       }
 
       if (!res.ok) {
-        throw new Error("Failed to queue submission");
+        let errData: any = {};
+        try { errData = await res.json(); } catch {}
+        throw new Error(errData.detail || errData.message || "Failed to submit answer");
       }
 
-      const data = await res.json();
-      setSubmissionStatus("Queued");
-      setLogs((prev) => [
-        ...prev,
-        {
-          id: "queued",
-          message: `Submission #${data.id} successfully queued. Dispatching worker.`,
-          type: "info",
-        },
-      ]);
-      
-      connectWebSocket(data.id);
+      const responseData = await res.json();
+      const data = responseData.success ? responseData.data : responseData;
+
+      if (selectedProblem.question_type === "coding") {
+        setSubmissionStatus("Queued");
+        setLogs((prev) => [
+          ...prev,
+          {
+            id: "queued",
+            message: `Submission #${data.id} successfully queued. Dispatching execution agent.`,
+            type: "info",
+          },
+        ]);
+        connectWebSocket(data.id);
+      } else {
+        // MCQ or FIB question evaluated instantly
+        setSubmissionStatus("Completed");
+        setLogs([
+          {
+            id: "eval-complete",
+            message: `[COMPLETE] Submission evaluated. Score: ${data.score} / ${selectedProblem.max_score} pts`,
+            type: data.score > 0 ? "success" : "error",
+          }
+        ]);
+      }
     } catch (err: unknown) {
       setSubmissionStatus("Failed");
       setLogs((prev) => [
         ...prev,
         {
           id: "error-submit",
-          message: err instanceof Error ? err.message : "Failed to submit code.",
+          message: err instanceof Error ? err.message : "Failed to submit answer.",
           type: "error",
         },
       ]);
@@ -638,7 +737,9 @@ export default function ProctoredAssessmentPage() {
                 >
                   <div className={styles.problemItemHeader}>
                     <span className={styles.problemItemName}>{prob.title}</span>
-                    <span className={styles.problemItemLang}>{prob.language}</span>
+                    <span className={styles.problemItemLang}>
+                      {prob.question_type === "coding" ? prob.language : prob.question_type.toUpperCase()}
+                    </span>
                   </div>
                   <span className={styles.problemItemPoints}>Max Score: {prob.max_score} pts</span>
                 </li>
@@ -661,39 +762,140 @@ export default function ProctoredAssessmentPage() {
                     <span>Timeout: {selectedProblem.time_limit_ms}ms</span>
                     <span>Memory: {selectedProblem.memory_limit_mb}MB</span>
                   </div>
+
+                  {selectedProblem.question_type === "coding" &&
+                    selectedProblem.sample_test_cases &&
+                    selectedProblem.sample_test_cases.length > 0 && (
+                      <div className={styles.sampleCasesSection}>
+                        <h4 className={styles.sampleCasesTitle}>Sample Test Cases</h4>
+                        <div className={styles.sampleCasesList}>
+                          {selectedProblem.sample_test_cases.map((tc, idx) => (
+                            <div key={idx} className={styles.sampleCaseCard}>
+                              <div className={styles.sampleCaseHeader}>
+                                Sample Test Case #{idx + 1}
+                              </div>
+                              <div className={styles.sampleCaseBody}>
+                                <div>
+                                  <span className={styles.sampleCaseLabel}>Input:</span>
+                                  <pre className={styles.sampleCaseValue}>{tc.input}</pre>
+                                </div>
+                                <div>
+                                  <span className={styles.sampleCaseLabel}>Expected Output:</span>
+                                  <pre className={styles.sampleCaseValue}>{tc.expected_output}</pre>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                 </div>
 
-                <div className={styles.editorWrapper}>
-                  <Editor
-                    height="100%"
-                    language={selectedProblem.language}
-                    theme="vs-dark"
-                    value={code}
-                    onChange={(val) => setCode(val || "")}
-                    options={{
-                      fontSize: 13,
-                      fontFamily: "var(--font-mono)",
-                      minimap: { enabled: false },
-                      automaticLayout: true,
-                      contextmenu: false,
-                    }}
-                  />
-                </div>
+                {selectedProblem.question_type === "coding" ? (
+                  <>
+                    <div className={styles.editorWrapper}>
+                      <Editor
+                        height="100%"
+                        language={selectedProblem.language}
+                        theme="vs-dark"
+                        value={code}
+                        onChange={(val) => setCode(val || "")}
+                        options={{
+                          fontSize: 13,
+                          fontFamily: "var(--font-mono)",
+                          minimap: { enabled: false },
+                          automaticLayout: true,
+                          contextmenu: false,
+                        }}
+                      />
+                    </div>
 
-                <div className={styles.editorControls}>
-                  <div className={styles.languageLabel}>
-                    <span>Mode:</span>
-                    <span className={styles.problemItemLang}>{selectedProblem.language}</span>
-                  </div>
+                    <div className={styles.editorControls}>
+                      <div className={styles.languageLabel}>
+                        <span>Mode:</span>
+                        <span className={styles.problemItemLang}>{selectedProblem.language}</span>
+                      </div>
 
-                  <button
-                    className={styles.submitBtn}
-                    onClick={submitCode}
-                    disabled={timeLeft <= 0 || submissionStatus === "Submitting..."}
-                  >
-                    <span>Submit Code</span>
-                  </button>
-                </div>
+                      <button
+                        className={styles.submitBtn}
+                        onClick={submitAnswer}
+                        disabled={timeLeft <= 0 || submissionStatus === "Submitting..."}
+                      >
+                        <span>Submit Code</span>
+                      </button>
+                    </div>
+                  </>
+                ) : selectedProblem.question_type === "mcq" ? (
+                  <>
+                    <div className={styles.optionsWrapper}>
+                      {selectedProblem.mcq_options?.map((option) => {
+                        const isChecked = selectedOptions.includes(option.id);
+                        return (
+                          <div
+                            key={option.id}
+                            className={`${styles.optionItem} ${
+                              isChecked ? styles.optionItemChecked : ""
+                            }`}
+                            onClick={() => handleOptionToggle(option.id)}
+                          >
+                            <input
+                              type={selectedProblem.is_multiple_choice ? "checkbox" : "radio"}
+                              name={`problem-${selectedProblem.id}`}
+                              checked={isChecked}
+                              onChange={() => {}} // toggling handled by click on outer wrapper
+                              className={styles.optionInput}
+                            />
+                            <span className={styles.optionText}>{option.option_text}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className={styles.editorControls}>
+                      <div className={styles.languageLabel}>
+                        <span>Multiple Correct Options:</span>
+                        <span className={styles.problemItemLang}>
+                          {selectedProblem.is_multiple_choice ? "YES" : "NO"}
+                        </span>
+                      </div>
+
+                      <button
+                        className={styles.submitBtn}
+                        onClick={submitAnswer}
+                        disabled={timeLeft <= 0 || submissionStatus === "Submitting..."}
+                      >
+                        <span>Submit Answer</span>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.fibWrapper}>
+                      <label className={styles.fibLabel}>Your Answer:</label>
+                      <input
+                        type="text"
+                        value={submittedText}
+                        onChange={(e) => setSubmittedText(e.target.value)}
+                        className={styles.fibInput}
+                        placeholder="Type your answer here..."
+                      />
+                    </div>
+
+                    <div className={styles.editorControls}>
+                      <div className={styles.languageLabel}>
+                        <span>Fill In The Blank</span>
+                      </div>
+
+                      <button
+                        className={styles.submitBtn}
+                        onClick={submitAnswer}
+                        disabled={timeLeft <= 0 || submissionStatus === "Submitting..."}
+                      >
+                        <span>Submit Answer</span>
+                      </button>
+                    </div>
+                  </>
+                )}
               </>
             )}
           </div>

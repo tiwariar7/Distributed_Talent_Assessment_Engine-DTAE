@@ -600,21 +600,3 @@
 .rank2 { background: #c0c0c0; color: #000; }
 .rank3 { background: #cd7f32; color: #000; }
 .rankOther { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
-
-// Refactor: Optimize query performance and database indexing.
-
-// Refactor: Refactor variable names for better readability.
-
-// Refactor: Update validation checks and constraints.
-
-// Refactor: Fix minor edge cases in calculation functions.
-
-// Refactor: Optimize query performance and database indexing.
-
-// Refactor: Add typing hints and documentation docstrings.
-
-// Refactor: Optimize imports and clean up code structure.
-
-// Refactor: Improve error handling and exception logging.
-
-// Refactor: Align with project code quality guidelines.

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { DashboardLayout } from "../../layouts/DashboardLayout";
 import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../components/UI/ToastProvider";
@@ -23,6 +24,7 @@ interface Topic {
 export default function RecruiterDashboard() {
   const { token } = useAuth();
   const { showToast } = useToast();
+  const router = useRouter();
 
   // Invitation Form state
   const [inviteEmail, setInviteEmail] = useState("");
@@ -97,10 +99,13 @@ export default function RecruiterDashboard() {
       );
 
       showToast(
-        `Assessment '${data.title}' containing ${data.problems_count} problems generated and published successfully! ID: ${data.assessment_id}`,
+        `Assessment '${data.title}' containing ${data.problems_count} problems generated and published successfully!`,
         "success"
       );
       setRoundTitle("");
+      
+      // Redirect to the assessment invite console for the new assessment!
+      router.push(`/recruiter/assessments/${data.assessment_id}/invite`);
     } catch (err: any) {
       showToast(err.message || "Failed to generate assessment.", "error");
     } finally {
@@ -186,11 +191,15 @@ export default function RecruiterDashboard() {
                       outline: "none",
                     }}
                   >
-                    {companies.map((c) => (
-                      <option key={c.id} value={c.slug}>
-                        {c.name}
-                      </option>
-                    ))}
+                    {companies.length === 0 ? (
+                      <option value="">Loading companies...</option>
+                    ) : (
+                      companies.map((c) => (
+                        <option key={c.id} value={c.slug}>
+                          {c.name}
+                        </option>
+                      ))
+                    )}
                   </select>
                 </div>
 
@@ -240,11 +249,15 @@ export default function RecruiterDashboard() {
                   }}
                 >
                   <option value="">Any Topic</option>
-                  {topics.map((t) => (
-                    <option key={t.id} value={t.slug}>
-                      {t.name}
-                    </option>
-                  ))}
+                  {topics.length === 0 ? (
+                    <option value="" disabled>Loading topics...</option>
+                  ) : (
+                    topics.map((t) => (
+                      <option key={t.id} value={t.slug}>
+                        {t.name}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
 

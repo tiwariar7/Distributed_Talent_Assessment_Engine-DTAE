@@ -47,6 +47,7 @@ class Command(BaseCommand):
         name = folder_name.replace("-", " ").replace("_", " ").title()
         return name, slug
 
+    @transaction.atomic
     def handle(self, *args, **options):
         limit = options["limit"]
         self.stdout.write(self.style.SUCCESS("Starting DSA Question Ingestion..."))
@@ -96,7 +97,6 @@ class Command(BaseCommand):
             "5. All.csv": FrequencyBucket.ALL,
         }
 
-        @transaction.atomic
         def save_frequency(question, company, bucket, frequency_val, repo, diff, tags_str):
             freq_obj, created = QuestionCompanyFrequency.objects.update_or_create(
                 question=question,
@@ -155,7 +155,7 @@ class Command(BaseCommand):
                                     # Columns: ID,URL,Title,Difficulty,Acceptance %,Frequency %
                                     title = row.get("Title")
                                     url = row.get("URL")
-                                    difficulty = row.get("Difficulty", "Medium").title()
+                                    difficulty = (row.get("Difficulty") or "Medium").title()
                                     acc_rate = self.parse_float(row.get("Acceptance %", "0.0"))
                                     freq_pct = self.parse_float(row.get("Frequency %", "0.0"))
                                     
@@ -174,15 +174,16 @@ class Command(BaseCommand):
                                         
                                     if not question:
                                         try:
-                                            question, created = DSAQuestion.objects.get_or_create(
-                                                slug=clean_slug,
-                                                defaults={
-                                                    "title": title,
-                                                    "leetcode_url": url,
-                                                    "difficulty": difficulty,
-                                                    "acceptance_rate": acc_rate,
-                                                }
-                                            )
+                                            with transaction.atomic():
+                                                question, created = DSAQuestion.objects.get_or_create(
+                                                    slug=clean_slug,
+                                                    defaults={
+                                                        "title": title,
+                                                        "leetcode_url": url,
+                                                        "difficulty": difficulty,
+                                                        "acceptance_rate": acc_rate,
+                                                    }
+                                                )
                                             if created:
                                                 stats["questions_created"] += 1
                                         except IntegrityError:
@@ -248,13 +249,13 @@ class Command(BaseCommand):
                                     # Columns: Difficulty,Title,Frequency,Acceptance Rate,Link,Topics
                                     title = row.get("Title")
                                     url = row.get("Link")
-                                    difficulty = row.get("Difficulty", "Medium").title()
+                                    difficulty = (row.get("Difficulty") or "Medium").title()
                                     acc_rate = self.parse_float(row.get("Acceptance Rate", "0.0"))
                                     # Sometimes acceptance rate is like 0.557, convert to percent 55.7
                                     if acc_rate > 0.0 and acc_rate <= 1.0:
                                         acc_rate = acc_rate * 100.0
                                     freq_pct = self.parse_float(row.get("Frequency", "0.0"))
-                                    topics_str = row.get("Topics", "")
+                                    topics_str = row.get("Topics") or ""
                                     
                                     if not title:
                                         continue
@@ -271,15 +272,16 @@ class Command(BaseCommand):
                                         
                                     if not question:
                                         try:
-                                            question, created = DSAQuestion.objects.get_or_create(
-                                                slug=clean_slug,
-                                                defaults={
-                                                    "title": title,
-                                                    "leetcode_url": url,
-                                                    "difficulty": difficulty,
-                                                    "acceptance_rate": acc_rate,
-                                                }
-                                            )
+                                            with transaction.atomic():
+                                                question, created = DSAQuestion.objects.get_or_create(
+                                                    slug=clean_slug,
+                                                    defaults={
+                                                        "title": title,
+                                                        "leetcode_url": url,
+                                                        "difficulty": difficulty,
+                                                        "acceptance_rate": acc_rate,
+                                                    }
+                                                )
                                             if created:
                                                 stats["questions_created"] += 1
                                         except IntegrityError:

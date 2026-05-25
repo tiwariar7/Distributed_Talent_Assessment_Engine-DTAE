@@ -69,6 +69,8 @@ class ProctoringViolation(models.Model):
         CAMERA_BLOCKED = "camera_blocked", "Camera Blocked"
         MIC_BLOCKED = "mic_blocked", "Microphone Blocked"
         IDLE_TIMEOUT = "idle_timeout", "Idle Timeout"
+        COPY_PASTE_ATTEMPT = "copy_paste_attempt", "Copy-Paste Attempt"
+        FACE_DETECTION_UPDATE = "face_detection_update", "Face Detection Update"
 
     class Severity(models.TextChoices):
         LOW = "low", "Low"
@@ -125,6 +127,9 @@ class ProctoringLog(models.Model):
         MIC_BLOCKED = "mic_blocked", "Microphone Access Blocked"
         WARNING_ISSUED = "warning_issued", "Warning Issued"
         AUTO_SUBMIT = "auto_submit", "Auto Submit Triggered"
+        COPY_PASTE_ATTEMPT = "copy_paste_attempt", "Copy-Paste Attempt"
+        FACE_DETECTION_UPDATE = "face_detection_update", "Face Detection Update"
+        HEARTBEAT_PING = "heartbeat_ping", "Heartbeat Ping"
 
     session = models.ForeignKey(
         ProctoringSession,

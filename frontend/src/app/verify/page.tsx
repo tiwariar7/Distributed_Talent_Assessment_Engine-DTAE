@@ -18,7 +18,7 @@ function VerifyEmailForm() {
 
   // Auto-fill from query param if available
   useEffect(() => {
-    const t = searchParams.get("token");
+    const t = searchParams?.get("token");
     if (t) {
       setToken(t);
       handleVerify(t);

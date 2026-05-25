@@ -13,6 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   className = "",
   disabled,
+  style,
   ...props
 }) => {
   const getStyles = () => {
@@ -78,7 +79,8 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled || isLoading}
-      style={getStyles() as React.CSSProperties}
+      style={{ ...getStyles(), ...style } as React.CSSProperties}
+      className={className}
       aria-busy={isLoading}
       {...props}
     >

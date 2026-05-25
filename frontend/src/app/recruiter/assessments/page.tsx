@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { DashboardLayout } from "../../../layouts/DashboardLayout";
 import { useAuth } from "../../../hooks/useAuth";
 import { useToast } from "../../../components/UI/ToastProvider";
@@ -22,6 +23,7 @@ interface Assessment {
 export default function RecruiterAssessmentsPage() {
   const { token } = useAuth();
   const { showToast } = useToast();
+  const router = useRouter();
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -68,21 +70,39 @@ export default function RecruiterAssessmentsPage() {
     <DashboardLayout>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Header */}
-        <div style={{ marginBottom: "32px" }}>
-          <h1
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px", flexWrap: "wrap", gap: "16px" }}>
+          <div>
+            <h1
+              style={{
+                fontSize: "32px",
+                fontWeight: "bold",
+                background: "linear-gradient(90deg, #ed64a6, #e53e3e)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Assessments Console
+            </h1>
+            <p style={{ color: "var(--text-muted)", marginTop: "6px", fontSize: "14px" }}>
+              Select an assessment to distribute candidate invitations and audit proctoring logs.
+            </p>
+          </div>
+          <Link
+            href="/recruiter"
             style={{
-              fontSize: "32px",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              background: "linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)",
+              color: "#fff",
+              textDecoration: "none",
               fontWeight: "bold",
-              background: "linear-gradient(90deg, #ed64a6, #e53e3e)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              fontSize: "14px",
+              boxShadow: "0 0 10px var(--accent-primary-glow)",
+              transition: "opacity 0.2s",
             }}
           >
-            Assessments Console
-          </h1>
-          <p style={{ color: "var(--text-muted)", marginTop: "6px", fontSize: "14px" }}>
-            Select an assessment to distribute candidate invitations and audit proctoring logs.
-          </p>
+            Smart Assessment Generator
+          </Link>
         </div>
 
         {error && (
@@ -105,9 +125,11 @@ export default function RecruiterAssessmentsPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {assessments.length === 0 ? (
             <EmptyState
-              icon=""
+              icon="⚡"
               title="No assessments created yet"
               description="Use the Smart Assessment Generator to generate your first round automatically."
+              actionText="Open Generator"
+              onAction={() => router.push("/recruiter")}
             />
           ) : (
             assessments.map((a) => (

@@ -9,16 +9,31 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.cache import cache
 from django.contrib.auth import authenticate
 from django.utils.text import slugify
+from django.conf import settings
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.authentication import CSRFCheck
+from django.middleware.csrf import get_token
 
 from apps.organizations.models import Organization
 from .models import User, VerificationToken, RecruiterInvitation, AuditLog, UserSession, Membership, Role
 from .serializers import RegisterSerializer, UserProfileSerializer
 from .tokens import EmailTokenObtainPairSerializer
+from .throttles import LoginRateThrottle
+
+
+def validate_csrf(request: Request):
+    """Run Django CSRF checks when processing cookie-based requests."""
+    check = CSRFCheck(lambda req: None)
+    check.process_request(request)
+    reason = check.process_view(request, None, (), {})
+    if reason:
+        raise PermissionDenied(f"CSRF Failed: {reason}")
 
 
 class RegisterView(APIView):
     """Public endpoint to register a candidate or recruiter."""
     permission_classes = [permissions.AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request: Request) -> Response:
         """Create user + membership and return verification notification."""
@@ -49,6 +64,7 @@ class LoginView(TokenObtainPairView):
     """
     serializer_class = EmailTokenObtainPairSerializer
     permission_classes = [permissions.AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         email = request.data.get("email", "").lower().strip()
@@ -94,6 +110,21 @@ class LoginView(TokenObtainPairView):
                         device_info=request.META.get("HTTP_USER_AGENT", ""),
                         ip_address=request.META.get("REMOTE_ADDR", ""),
                     )
+                    # Cache active session key in Redis
+                    cache_key = f"session_active:{jti}"
+                    cache.set(cache_key, True, timeout=7 * 24 * 60 * 60)
+
+                    # Set HTTP-only cookie for refresh token
+                    response.set_cookie(
+                        "dtae_refresh",
+                        refresh_token,
+                        httponly=True,
+                        samesite="Strict",
+                        secure=not settings.DEBUG,
+                        max_age=7 * 24 * 60 * 60,
+                    )
+                    # Force set CSRF cookie
+                    get_token(request)
                 except Exception:
                     pass
 
@@ -133,9 +164,13 @@ class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request: Request) -> Response:
-        refresh_token = request.data.get("refresh")
+        refresh_token = request.COOKIES.get("dtae_refresh") or request.data.get("refresh")
         if not refresh_token:
             return Response({"detail": "Refresh token required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Enforce CSRF check if refresh token was supplied via Cookie
+        if request.COOKIES.get("dtae_refresh"):
+            validate_csrf(request)
 
         try:
             token = RefreshToken(refresh_token)
@@ -143,6 +178,7 @@ class LogoutView(APIView):
             # Blacklist token (requires simplejwt blacklist app, but we also manually clean the session)
             token.blacklist()
             UserSession.objects.filter(session_key=jti).delete()
+            cache.delete(f"session_active:{jti}")
         except Exception:
             pass # token may already be invalid, but we'll complete logout
 
@@ -153,7 +189,9 @@ class LogoutView(APIView):
             user_agent=request.META.get("HTTP_USER_AGENT"),
         )
 
-        return Response({"message": "Logout successful."}, status=status.HTTP_200_OK)
+        response = Response({"message": "Logout successful."}, status=status.HTTP_200_OK)
+        response.delete_cookie("dtae_refresh")
+        return response
 
 
 class VerifyEmailView(APIView):
@@ -195,6 +233,7 @@ class ResetPasswordView(APIView):
     Handles requesting a password reset link and confirming the password update.
     """
     permission_classes = [permissions.AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request: Request) -> Response:
         # Request reset
@@ -237,6 +276,7 @@ class ResetPasswordConfirmView(APIView):
     Confirm password reset with token.
     """
     permission_classes = [permissions.AllowAny]
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request: Request) -> Response:
         token = request.data.get("token")
@@ -416,6 +456,62 @@ class TokenRefreshView(SimpleJWTTokenRefreshView):
     """Refreshes SimpleJWT tokens with JWT abuse rate limiting."""
     from .throttles import JWTAbuseRateThrottle
     throttle_classes = [JWTAbuseRateThrottle]
+
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        refresh_token = request.COOKIES.get("dtae_refresh") or request.data.get("refresh")
+        if not refresh_token:
+            return Response({"detail": "Refresh token required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Enforce CSRF check if refresh token was supplied via Cookie
+        if request.COOKIES.get("dtae_refresh"):
+            validate_csrf(request)
+
+        # Prepare request.data with the refresh token so simplejwt gets it
+        mutable_data = request.data.copy()
+        mutable_data["refresh"] = refresh_token
+        request._full_data = mutable_data
+
+        try:
+            old_token = RefreshToken(refresh_token)
+            old_jti = old_token.get("jti")
+        except Exception:
+            old_jti = None
+
+        response = super().post(request, *args, **kwargs)
+
+        if response.status_code == status.HTTP_200_OK:
+            new_refresh = response.data.get("refresh")
+            if new_refresh:
+                try:
+                    new_token = RefreshToken(new_refresh)
+                    new_jti = new_token.get("jti")
+                    
+                    # Update session key in DB
+                    if old_jti:
+                        UserSession.objects.filter(session_key=old_jti).update(
+                            session_key=new_jti,
+                            last_activity=timezone.now()
+                        )
+                        cache.delete(f"session_active:{old_jti}")
+                    
+                    # Cache the new session active status
+                    cache.set(f"session_active:{new_jti}", True, timeout=7 * 24 * 60 * 60)
+
+                    # Update httpOnly cookie
+                    response.set_cookie(
+                        "dtae_refresh",
+                        new_refresh,
+                        httponly=True,
+                        samesite="Strict",
+                        secure=not settings.DEBUG,
+                        max_age=7 * 24 * 60 * 60,
+                    )
+                    # Force set CSRF cookie
+                    get_token(request)
+                except Exception:
+                    pass
+
+        return response
 
 
 # Refactor: Optimize imports and clean up code structure.

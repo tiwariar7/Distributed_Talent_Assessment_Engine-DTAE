@@ -2,7 +2,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RecruiterAssessmentViewSet, CandidateAssessmentViewSet, ProblemSubmissionView
+from .views import RecruiterAssessmentViewSet, CandidateAssessmentViewSet, ProblemSubmissionView, ProblemAutosaveView
 
 router = DefaultRouter()
 router.register(r'recruiter', RecruiterAssessmentViewSet, basename='recruiter-assessment')
@@ -11,6 +11,7 @@ router.register(r'candidate', CandidateAssessmentViewSet, basename='candidate-as
 urlpatterns = [
     path("", CandidateAssessmentViewSet.as_view({"get": "list"}), name="assessment-list-compat"),
     path("problems/<int:problem_id>/submissions/", ProblemSubmissionView.as_view(), name="problem-submission-compat"),
+    path("problems/<int:problem_id>/autosave/", ProblemAutosaveView.as_view(), name="problem-autosave"),
     path("", include(router.urls)),
 ]
 

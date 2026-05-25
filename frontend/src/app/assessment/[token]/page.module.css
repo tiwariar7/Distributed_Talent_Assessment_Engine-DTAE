@@ -653,26 +653,147 @@
   }
 }
 
-// Refactor: Update validation checks and constraints.
+.optionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
 
-// Refactor: Align with project code quality guidelines.
+.optionItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.01);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+}
 
-// Refactor: Improve error handling and exception logging.
+.optionItem:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-color-hover);
+}
 
-// Refactor: Refactor variable names for better readability.
+.optionItemChecked {
+  background: var(--accent-primary-glow);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(var(--accent-primary-rgb), 0.1);
+}
 
-// Refactor: Align with project code quality guidelines.
+.optionInput {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
 
-// Refactor: Refactor variable names for better readability.
+.optionText {
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.4;
+}
 
-// Refactor: Fix minor edge cases in calculation functions.
+.fibWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  flex: 1;
+}
 
-// Refactor: Improve responsive styles and layouts.
+.fibLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-// Refactor: Improve responsive styles and layouts.
+.fibInput {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 15px;
+  width: 100%;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
 
-// Refactor: Enhance component rendering performance.
+.fibInput:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-primary-glow);
+}
 
-// Refactor: Enhance component rendering performance.
+.sampleCasesSection {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border-color);
+}
 
-// Refactor: Update validation checks and constraints.
+.sampleCasesTitle {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sampleCasesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sampleCaseCard {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.sampleCaseHeader {
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sampleCaseBody {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sampleCaseLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sampleCaseValue {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 0;
+  white-space: pre-wrap;
+  color: hsl(210, 15%, 85%);
+}

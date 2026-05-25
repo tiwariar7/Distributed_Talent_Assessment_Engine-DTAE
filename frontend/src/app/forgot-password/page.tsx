@@ -22,7 +22,7 @@ function ForgotPasswordForm() {
 
   // Set token if present in query params
   useEffect(() => {
-    const t = searchParams.get("token");
+    const t = searchParams?.get("token");
     if (t) {
       setToken(t);
     }

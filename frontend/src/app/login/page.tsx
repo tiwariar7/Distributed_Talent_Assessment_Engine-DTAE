@@ -21,7 +21,7 @@ function LoginContent() {
 
   // Sync tab with search parameters on load
   useEffect(() => {
-    const roleParam = searchParams.get("role");
+    const roleParam = searchParams?.get("role");
     if (roleParam === "recruiter") {
       setActiveTab("recruiter");
       setEmail("recruiter@demo.test");
@@ -47,6 +47,11 @@ function LoginContent() {
     try {
       const profile = await login(email, password);
       showToast(`Welcome back, ${profile.name}!`, "success");
+      if (profile.isRecruiter) {
+        router.push("/recruiter/assessments");
+      } else {
+        router.push("/candidate/dashboard");
+      }
     } catch (err: any) {
       showToast(err.message || "Authentication failed. Please verify credentials.", "error");
     }

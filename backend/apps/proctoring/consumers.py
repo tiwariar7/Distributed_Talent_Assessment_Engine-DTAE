@@ -42,62 +42,115 @@ class ProctoringConsumer(AsyncJsonWebsocketConsumer):
         self.group_name = f"proctoring_session_{self.session.id}"
         await self.channel_layer.group_add(self.group_name, self.channel_name)
 
-        await self.accept()
-        logger.info(f"Proctoring WS connected for user {user.email}, session {self.session.id}")
+        # Accept connection with subprotocol if negotiated
+        if hasattr(self, "accepted_subprotocol"):
+            await self.accept(subprotocol=self.accepted_subprotocol)
+        else:
+            await self.accept()
+
+        logger.info(
+            f"Proctoring WS connected for user {user.email}, session {self.session.id}",
+            extra={"user_id": user.id, "session_id": self.session.id, "action": "websocket_connect"}
+        )
 
     async def disconnect(self, close_code):
         if hasattr(self, "group_name"):
             await self.channel_layer.group_discard(self.group_name, self.channel_name)
-        logger.info(f"Proctoring WS disconnected with code {close_code}")
+        
+        session_id = getattr(self, "session", None) and self.session.id
+        user_id = self.scope.get("user") and getattr(self.scope["user"], "id", None)
+        logger.info(
+            f"Proctoring WS disconnected with code {close_code}",
+            extra={"session_id": session_id, "user_id": user_id, "close_code": close_code, "action": "websocket_disconnect"}
+        )
 
     async def receive_json(self, content, **kwargs):
         """
         Handle incoming telemetry signals from the client.
-        Expected format:
-        {
-            "event_type": "window_blur" | "copy_attempt" | etc.,
-            "metadata": { ... }
-        }
+        Normalizes uppercase/lowercase standard events and evaluates violations.
         """
-        event_type = content.get("event_type")
-        metadata = content.get("metadata", {})
-
-        # Handle ping/heartbeat
-        if event_type == "ping":
-            await self.send_json({"event_type": "pong", "timestamp": timezone.now().isoformat()})
-            return
-
-        if not event_type:
+        raw_event = content.get("event_type", "")
+        if not raw_event:
             await self.send_json({"error": "event_type is required."})
             return
 
+        event_type = raw_event.upper().strip()
+        metadata = content.get("metadata", {})
+
+        # Handle ping/heartbeat
+        if event_type in ("PING", "HEARTBEAT_PING"):
+            session_id = getattr(self, "session", None) and self.session.id
+            user_id = self.scope.get("user") and getattr(self.scope["user"], "id", None)
+            logger.info("Heartbeat ping received", extra={"session_id": session_id, "user_id": user_id, "action": "heartbeat_ping"})
+            await self.send_json({"event_type": "pong", "timestamp": timezone.now().isoformat()})
+            return
+
+        # Normalize incoming events
+        normalized_event = None
+        if event_type in ("TAB_SWITCH", "WINDOW_BLUR", "TAB_FOCUS_LOST"):
+            normalized_event = "tab_switch"
+        elif event_type in ("FULLSCREEN_EXIT",):
+            normalized_event = "fullscreen_exit"
+        elif event_type in ("COPY_PASTE_ATTEMPT", "COPY_ATTEMPT", "PASTE_ATTEMPT", "COPY_PASTE"):
+            normalized_event = "copy_paste_attempt"
+        elif event_type in ("FACE_DETECTION_UPDATE", "PHONE_DETECTED", "MULTIPLE_FACES_DETECTED", "NO_FACE_DETECTED"):
+            normalized_event = "face_detection_update"
+        else:
+            # Lowercase fallback
+            normalized_event = raw_event.lower().strip()
+
         # Validate event type
+        valid_violation_types = {choice[0] for choice in ProctoringViolation.ViolationType.choices}
         valid_event_types = {choice[0] for choice in ProctoringLog.EventType.choices}
-        if event_type not in valid_event_types:
-            # Check if it fits the ViolationType choices as fallback
-            valid_violation_types = {choice[0] for choice in ProctoringViolation.ViolationType.choices}
-            if event_type not in valid_violation_types:
-                await self.send_json({"error": f"Invalid event_type: {event_type}"})
-                return
+
+        if normalized_event not in valid_violation_types and normalized_event not in valid_event_types:
+            await self.send_json({"error": f"Invalid event_type: {raw_event}"})
+            return
 
         # Check if the event is a violation that counts towards warnings
-        is_violation = event_type in {choice[0] for choice in ProctoringViolation.ViolationType.choices}
+        is_violation = normalized_event in valid_violation_types
+
+        # Structured JSON logging for all telemetry
+        logger.info(
+            f"Proctoring telemetry event: {normalized_event}",
+            extra={
+                "session_id": self.session.id,
+                "user_id": self.scope["user"].id,
+                "event_type": normalized_event,
+                "is_violation": is_violation,
+                "metadata": metadata,
+                "action": "proctoring_event"
+            }
+        )
 
         if is_violation:
-            max_warnings = getattr(settings, "PROCTORING_MAX_WARNINGS", 3)
+            max_warnings = getattr(settings, "PROCTORING_MAX_WARNINGS", 2)
             auto_submit_enabled = getattr(settings, "PROCTORING_AUTO_SUBMIT_ON_VIOLATION", True)
             
             # Process violation in DB (atomic)
             res = await self.process_violation(
-                self.session.id, event_type, metadata, max_warnings, auto_submit_enabled
+                self.session.id, normalized_event, metadata, max_warnings, auto_submit_enabled
             )
             if res:
                 violation_id, auto_submitted, count = res
                 
+                # Warning logger warning log
+                logger.warning(
+                    f"Proctoring warning issued ({count}/{max_warnings}) for {self.scope['user'].email}",
+                    extra={
+                        "session_id": self.session.id,
+                        "user_id": self.scope["user"].id,
+                        "violation_type": normalized_event,
+                        "violation_count": count,
+                        "auto_submitted": auto_submitted,
+                        "action": "proctoring_violation"
+                    }
+                )
+
                 # Broadcast back to current client
                 await self.send_json({
                     "event_type": "warning_issued" if not auto_submitted else "auto_submit",
-                    "violation_type": event_type,
+                    "violation_type": normalized_event,
                     "violation_count": count,
                     "max_warnings": max_warnings,
                     "auto_submitted": auto_submitted,
@@ -111,7 +164,7 @@ class ProctoringConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_json({"error": "Failed to process violation."})
         else:
             # Just log telemetry event
-            await self.record_log(self.session.id, event_type, metadata)
+            await self.record_log(self.session.id, normalized_event, metadata)
             await self.send_json({"status": "logged"})
 
     # Database Helpers
@@ -209,31 +262,49 @@ class ProctoringConsumer(AsyncJsonWebsocketConsumer):
             return None
 
     async def _authenticate_user(self):
-        """Validate JWT from query string ``token`` parameter and track expiry."""
+        """Validate JWT from query string, subprotocol, or scope user."""
         from urllib.parse import parse_qs
         from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
         from rest_framework_simplejwt.tokens import AccessToken
         from django.contrib.auth import get_user_model
 
         User = get_user_model()
-        query_string = self.scope.get("query_string", b"").decode()
-        token_list = parse_qs(query_string).get("token", [])
-        if not token_list:
-            # Fallback to scope user
+        token = None
+
+        # 1. Try to get token from Sec-WebSocket-Protocol subprotocol
+        headers = dict(self.scope.get("headers", []))
+        protocol_header = headers.get(b"sec-websocket-protocol", b"").decode().strip()
+        if protocol_header:
+            protocols = [p.strip() for p in protocol_header.split(",")]
+            if "access_token" in protocols:
+                idx = protocols.index("access_token")
+                if idx + 1 < len(protocols):
+                    token = protocols[idx + 1]
+                    self.accepted_subprotocol = "access_token"
+
+        # 2. Fallback to query string
+        if not token:
+            query_string = self.scope.get("query_string", b"").decode()
+            token_list = parse_qs(query_string).get("token", [])
+            if token_list:
+                token = token_list[0]
+
+        # 3. Fallback to scope user
+        if not token:
             user = self.scope.get("user")
             if user and user.is_authenticated:
                 return user
             return None
 
         try:
-            access = AccessToken(token_list[0])
+            access = AccessToken(token)
             user_id = access["user_id"]
             self.token_expiry = access["exp"]
             user = await database_sync_to_async(User.objects.get)(pk=user_id)
             self.scope["user"] = user
             return user
         except (InvalidToken, TokenError, User.DoesNotExist, KeyError) as exc:
-            logger.warning("WebSocket auth failed: %s", exc)
+            logger.warning("WebSocket auth failed: %s", exc, extra={"token_supplied": bool(token)})
             return None
 
 

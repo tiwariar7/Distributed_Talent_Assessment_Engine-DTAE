@@ -27,6 +27,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["email"] = user.email
         token["first_name"] = user.first_name
         token["last_name"] = user.last_name
+        token["session_key"] = token["jti"]
         token["memberships"] = [
             {
                 "org_slug": m.organization.slug,
